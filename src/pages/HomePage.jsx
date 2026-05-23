@@ -196,7 +196,7 @@ function HeroCards({ visible }) {
           opacity: 0.6, whiteSpace: 'nowrap', pointerEvents: 'none',
           letterSpacing: '0.04em',
         }}>
-          hover to explore ✦
+          {window.matchMedia('(hover: hover)').matches ? 'hover to explore ✦' : 'scroll to fan ✦'}
         </div>
       )}
     </div>
@@ -268,104 +268,140 @@ const featuredDrinks = [
   { icon: '☁️', name: 'Coconut Cold Brew',    desc: 'Smooth 18-hour cold brew finished with coconut milk and a hint of vanilla.',      tag: 'New', bg: '#e8f0f0', color: '#1a3a3a' },
 ]
 
-function DrinkCarousel({ onOrder }) {
-  const [active, setActive] = useState(0)
-  const total = featuredDrinks.length
-  const trackRef = useRef(null)
+function DrinkStack() {
+  const total     = featuredDrinks.length
+  const THRESHOLD = 80
 
-  useEffect(() => {
-    const t = setInterval(() => setActive(a => (a + 1) % total), 4000)
-    return () => clearInterval(t)
-  }, [total])
+  const [topIdx, setTopIdx]   = useState(0)
+  const [dragX, setDragX]     = useState(0)
+  const [exitDir, setExitDir] = useState(null)
 
-  const d = featuredDrinks[active]
+  const isDragging = useRef(false)
+  const startX     = useRef(0)
+  const busy       = useRef(false)
+
+  function goNext(dir) {
+    if (busy.current) return
+    busy.current = true
+    setExitDir(dir)
+    setTimeout(() => {
+      setTopIdx(i => (i + 1) % total)
+      setExitDir(null)
+      setDragX(0)
+      busy.current = false
+    }, 420)
+  }
+
+  function onPointerDown(e) {
+    if (busy.current) return
+    isDragging.current = true
+    startX.current = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX
+  }
+  function onPointerMove(e) {
+    if (!isDragging.current) return
+    const x = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX
+    setDragX(x - startX.current)
+  }
+  function onPointerUp() {
+    if (!isDragging.current) return
+    isDragging.current = false
+    if      (dragX < -THRESHOLD) goNext('left')
+    else if (dragX >  THRESHOLD) goNext('right')
+    else setDragX(0)
+  }
+
+  const dragProgress = Math.min(1, Math.abs(dragX) / THRESHOLD)
 
   return (
     <div style={{ position: 'relative' }}>
-      {/* Main card */}
-      <div style={{
-        borderRadius: 28, overflow: 'hidden',
-        background: d.bg,
-        minHeight: 340,
-        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-        padding: '48px 40px',
-        textAlign: 'center',
-        transition: 'background 0.5s ease',
-        position: 'relative',
-      }}>
-        {/* Decorative blobs */}
-        <div style={{ position: 'absolute', top: -40, right: -40, width: 180, height: 180, borderRadius: '50%', background: d.color, opacity: 0.06 }} />
-        <div style={{ position: 'absolute', bottom: -30, left: -30, width: 120, height: 120, borderRadius: '50%', background: d.color, opacity: 0.08 }} />
+      <div style={{ position: 'relative', height: 520, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
 
-        <div style={{ fontSize: 72, marginBottom: 16, animation: 'floatBob 3s ease-in-out infinite' }}>{d.icon}</div>
+        {featuredDrinks.map((d, i) => {
+          const stackPos = ((i - topIdx) % total + total) % total
+          if (stackPos > 1) return null
+          const isTop = stackPos === 0
 
-        <span style={{
-          display: 'inline-block', padding: '4px 14px', borderRadius: 9999,
-          background: 'rgba(255,255,255,0.55)', marginBottom: 12,
-          fontFamily: 'CobblerSans', fontWeight: 700, fontSize: 12,
-          color: d.color, textTransform: 'uppercase', letterSpacing: '0.06em',
-        }}>
-          {d.tag}
-        </span>
+          let transform, transition, shadow, cursor
 
-        <h3 style={{ fontFamily: 'ArtSchoolDropout', fontSize: 'clamp(22px, 3vw, 32px)', color: d.color, margin: '0 0 12px', lineHeight: 1.2 }}>
-          {d.name}
-        </h3>
-        <p style={{ fontFamily: 'CobblerSans', fontSize: 15, color: d.color, opacity: 0.8, lineHeight: 1.65, maxWidth: 360, margin: '0 auto 24px' }}>
-          {d.desc}
-        </p>
-        <button
-          onClick={onOrder}
-          style={{
-            padding: '13px 32px', borderRadius: 9999,
-            background: d.color, color: '#fff', border: 'none',
-            fontFamily: 'CobblerSans', fontWeight: 700, fontSize: 14,
-            cursor: 'pointer', boxShadow: `0 4px 16px ${d.color}55`,
-          }}
-        >
-          Order Now
-        </button>
+          if (isTop) {
+            const tx  = exitDir === 'left' ? -620 : exitDir === 'right' ? 620 : dragX
+            const rot = exitDir === 'left' ? -28  : exitDir === 'right' ? 28  : dragX * 0.06
+            transform  = `translateX(${tx}px) rotate(${rot}deg)`
+            transition = isDragging.current ? 'none' : exitDir ? 'transform 0.42s cubic-bezier(0.4,0,0.8,1)' : 'transform 0.25s cubic-bezier(0.34,1.2,0.64,1)'
+            shadow     = `0 ${12 + Math.abs(dragX) * 0.04}px ${32 + Math.abs(dragX) * 0.08}px rgba(0,0,0,0.2)`
+            cursor     = isDragging.current ? 'grabbing' : 'grab'
+          } else {
+            const scale = 0.95 + dragProgress * 0.045
+            const ty    = 16 - dragProgress * 14
+            transform  = `translateY(${ty}px) scale(${scale})`
+            transition = isDragging.current ? 'transform 0.06s ease, box-shadow 0.06s ease' : 'transform 0.32s cubic-bezier(0.22,1,0.36,1), box-shadow 0.32s cubic-bezier(0.22,1,0.36,1)'
+            shadow     = `0 ${4 + dragProgress * 10}px ${18 + dragProgress * 16}px rgba(0,0,0,${0.1 + dragProgress * 0.1})`
+            cursor     = 'default'
+          }
+
+          return (
+            <div
+              key={i}
+              onMouseDown={isTop  ? onPointerDown : undefined}
+              onMouseMove={isTop  ? onPointerMove : undefined}
+              onMouseUp={isTop    ? onPointerUp   : undefined}
+              onMouseLeave={isTop ? onPointerUp   : undefined}
+              onTouchStart={isTop ? onPointerDown : undefined}
+              onTouchMove={isTop  ? e => { e.preventDefault(); onPointerMove(e) } : undefined}
+              onTouchEnd={isTop   ? onPointerUp   : undefined}
+              style={{
+                position: 'absolute',
+                width: 'min(72%, 320px)',
+                minHeight: 480,
+                borderRadius: 28,
+                background: d.bg,
+                display: 'flex', flexDirection: 'column',
+                alignItems: 'center', justifyContent: 'center',
+                padding: '56px 36px 52px', textAlign: 'center',
+                userSelect: 'none', touchAction: 'none',
+                overflow: 'hidden',
+                zIndex: isTop ? 3 : 1,
+                transform, transition, boxShadow: shadow, cursor,
+              }}
+            >
+              {isTop && <>
+                <div style={{ position: 'absolute', top: 22, left: 20, pointerEvents: 'none', border: `3px solid ${C.primary}`, borderRadius: 8, padding: '3px 12px', fontFamily: 'CobblerSans', fontWeight: 800, fontSize: 15, color: C.primary, letterSpacing: '0.07em', transform: 'rotate(-13deg)', opacity: dragX > 30 ? Math.min(1, (dragX - 30) / 48) : 0, transition: 'opacity 0.08s' }}>← BACK</div>
+                <div style={{ position: 'absolute', top: 22, right: 20, pointerEvents: 'none', border: `3px solid ${C.secondary}`, borderRadius: 8, padding: '3px 12px', fontFamily: 'CobblerSans', fontWeight: 800, fontSize: 15, color: C.secondary, letterSpacing: '0.07em', transform: 'rotate(13deg)', opacity: dragX < -30 ? Math.min(1, (-dragX - 30) / 48) : 0, transition: 'opacity 0.08s' }}>NEXT →</div>
+              </>}
+
+              <div style={{ position: 'absolute', top: -30, right: -30, width: 140, height: 140, borderRadius: '50%', background: d.color, opacity: 0.07, pointerEvents: 'none' }} />
+              <div style={{ position: 'absolute', bottom: -20, left: -20, width: 100, height: 100, borderRadius: '50%', background: d.color, opacity: 0.09, pointerEvents: 'none' }} />
+
+              <div style={{ fontSize: 64, marginBottom: 16, lineHeight: 1, pointerEvents: 'none', animation: isTop ? 'floatBob 3s ease-in-out infinite' : 'none' }}>{d.icon}</div>
+              <span style={{ display: 'inline-block', padding: '4px 14px', borderRadius: 9999, background: 'rgba(255,255,255,0.6)', marginBottom: 12, fontFamily: 'CobblerSans', fontWeight: 700, fontSize: 11, color: d.color, textTransform: 'uppercase', letterSpacing: '0.07em', pointerEvents: 'none' }}>{d.tag}</span>
+              <h3 style={{ fontFamily: 'ArtSchoolDropout', fontSize: 'clamp(20px, 2.6vw, 27px)', color: d.color, margin: '0 0 10px', lineHeight: 1.2, pointerEvents: 'none' }}>{d.name}</h3>
+              <p style={{ fontFamily: 'CobblerSans', fontSize: 14, color: d.color, lineHeight: 1.65, maxWidth: 280, margin: 0, pointerEvents: 'none', opacity: 0.78 }}>{d.desc}</p>
+            </div>
+          )
+        })}
       </div>
 
-      {/* Dot navigation */}
-      <div style={{ display: 'flex', justifyContent: 'center', gap: 8, marginTop: 20 }}>
-        {featuredDrinks.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setActive(i)}
-            style={{
-              width: i === active ? 28 : 8, height: 8, borderRadius: 9999, border: 'none',
-              background: i === active ? C.primary : C.outline,
-              cursor: 'pointer', padding: 0,
-              transition: 'width 0.3s ease, background 0.3s ease',
-            }}
-          />
+      {/* ── Arrow controls ── */}
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 20, marginTop: 24 }}>
+        {['←', '→'].map((arrow, i) => (
+          <button key={arrow} onClick={() => goNext(i === 0 ? 'left' : 'right')} style={arrowBtn}
+            onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.12)'}
+            onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
+          >{arrow}</button>
         ))}
       </div>
-
-      {/* Prev / Next */}
-      {['←','→'].map((arrow, dir) => (
-        <button
-          key={arrow}
-          onClick={() => setActive(a => dir === 0 ? (a - 1 + total) % total : (a + 1) % total)}
-          style={{
-            position: 'absolute', top: '42%',
-            [dir === 0 ? 'left' : 'right']: -20,
-            width: 40, height: 40, borderRadius: '50%',
-            background: C.surface, border: `1px solid ${C.outline}`,
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            fontFamily: 'CobblerSans', fontSize: 18, color: C.onSurface,
-            cursor: 'pointer', boxShadow: '0 2px 12px rgba(0,0,0,0.1)',
-            transition: 'transform 0.15s',
-          }}
-          onMouseEnter={e => e.currentTarget.style.transform = 'scale(1.12)'}
-          onMouseLeave={e => e.currentTarget.style.transform = 'scale(1)'}
-        >
-          {arrow}
-        </button>
-      ))}
     </div>
   )
+}
+
+const arrowBtn = {
+  width: 42, height: 42, borderRadius: '50%',
+  background: '#fff', border: `1.5px solid ${C.outline}`,
+  display: 'flex', alignItems: 'center', justifyContent: 'center',
+  fontFamily: 'CobblerSans', fontSize: 18, color: C.onSurface,
+  cursor: 'pointer', boxShadow: '0 2px 10px rgba(0,0,0,0.08)',
+  transition: 'transform 0.15s',
+  flexShrink: 0,
 }
 
 // ── Reviews ───────────────────────────────────────────────────────────────
@@ -520,9 +556,7 @@ export default function HomePage() {
               </h2>
             </div>
           </Reveal>
-          <Reveal delay={100}>
-            <DrinkCarousel onOrder={() => setShowOrder(true)} />
-          </Reveal>
+          <DrinkStack />
         </Container>
       </section>
 
