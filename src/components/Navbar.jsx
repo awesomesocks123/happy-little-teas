@@ -10,19 +10,24 @@ const C = {
   onSurface: '#1c1c18',
   onSurfaceVariant: '#424844',
   outline: '#c2c8c2',
-  overlay: 'rgba(28,28,24,0.55)',
+  primaryContainer: '#8fa899',
 }
 
 const navLinks = [
-  { label: 'Home', to: '/' },
-  { label: 'Menu', to: '/menu' },
-  { label: 'Our Story', to: '/#story' },
-  { label: 'Find Us', to: '/#locations' },
+  { label: 'Home',      to: '/' },
+  { label: 'Menu',      to: '/menu' },
+  { label: 'Our Story', to: '/story' },
+  { label: 'Find Us',   to: '/find-us' },
 ]
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
   const [showOrder, setShowOrder] = useState(false)
+
+  function openOrder() {
+    setMenuOpen(false)
+    setShowOrder(true)
+  }
 
   return (
     <>
@@ -37,15 +42,16 @@ export default function Navbar() {
           height: 64,
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         }}>
-          {/* Logo */}
+
+          {/* ── Desktop: logo + name ── Mobile: logo only ── */}
           <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', flexShrink: 0 }}>
             <img src={logo} alt="HLT" style={{ height: 40, width: 'auto' }} />
-            <span style={{ fontFamily: 'ArtSchoolDropout', fontSize: 18, color: C.primary, lineHeight: 1 }}>
+            <span className="nav-brand-name" style={{ fontFamily: 'ArtSchoolDropout', fontSize: 18, color: C.primary, lineHeight: 1 }}>
               Happy Little Teas
             </span>
           </Link>
 
-          {/* Desktop links */}
+          {/* ── Desktop: links + Order Now ── */}
           <div className="desktop-nav" style={{ display: 'flex', alignItems: 'center', gap: 32 }}>
             {navLinks.map(({ label, to }) => (
               <NavLink
@@ -64,66 +70,84 @@ export default function Navbar() {
               </NavLink>
             ))}
             <button
-              onClick={() => { setOpen(false); setShowOrder(true) }}
+              onClick={openOrder}
               style={{
                 padding: '10px 22px', borderRadius: 9999,
                 background: C.primary, color: C.onPrimary, border: 'none',
                 fontFamily: 'CobblerSans', fontWeight: 700, fontSize: 14,
-                cursor: 'pointer',
-                whiteSpace: 'nowrap',
+                cursor: 'pointer', whiteSpace: 'nowrap',
               }}
             >
               Order Now
             </button>
           </div>
 
-          {/* Mobile hamburger */}
-          <button
-            className="mobile-menu-btn"
-            onClick={() => setOpen(true)}
-            aria-label="Open menu"
-            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 4, display: 'none' }}
-          >
-            <span style={{ fontFamily: 'Material Icons', fontSize: 28, color: C.onSurface }}>menu</span>
-          </button>
+          {/* ── Mobile: Order Now (right of logo) + Hamburger (far right) ── */}
+          <div className="mobile-nav" style={{ display: 'none', alignItems: 'center', gap: 10 }}>
+            <button
+              onClick={openOrder}
+              style={{
+                padding: '9px 18px', borderRadius: 9999,
+                background: C.primary, color: C.onPrimary, border: 'none',
+                fontFamily: 'CobblerSans', fontWeight: 700, fontSize: 13,
+                cursor: 'pointer', whiteSpace: 'nowrap',
+              }}
+            >
+              Order Now
+            </button>
+            <button
+              onClick={() => setMenuOpen(true)}
+              aria-label="Open menu"
+              style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 6, display: 'flex' }}
+            >
+              <span style={{ fontFamily: 'Material Icons', fontSize: 26, color: C.onSurface }}>menu</span>
+            </button>
+          </div>
         </div>
       </nav>
 
-      {/* Mobile drawer overlay */}
-      {open && (
-        <div
-          onClick={() => setOpen(false)}
-          style={{ position: 'fixed', inset: 0, zIndex: 100, background: C.overlay }}
-        />
-      )}
-
-      {/* Mobile drawer */}
+      {/* ── Full-page menu takeover ── */}
       <div style={{
-        position: 'fixed', top: 0, right: 0, bottom: 0, zIndex: 101,
-        width: 300,
+        position: 'fixed', inset: 0, zIndex: 200,
         background: C.surface,
-        transform: open ? 'translateX(0)' : 'translateX(100%)',
-        transition: 'transform 0.28s ease',
         display: 'flex', flexDirection: 'column',
-        padding: '20px 24px',
+        transform: menuOpen ? 'translateX(0)' : 'translateX(100%)',
+        transition: 'transform 0.35s cubic-bezier(0.4,0,0.2,1)',
+        overflowY: 'auto',
       }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 32 }}>
-          <span style={{ fontFamily: 'ArtSchoolDropout', fontSize: 18, color: C.primary }}>Happy Little Teas</span>
-          <button onClick={() => setOpen(false)} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>
-            <span style={{ fontFamily: 'Material Icons', fontSize: 24, color: C.onSurface }}>close</span>
+        {/* Top bar inside takeover */}
+        <div style={{
+          display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          padding: '16px 24px',
+          borderBottom: `1px solid ${C.outline}`,
+          flexShrink: 0,
+        }}>
+          <Link to="/" onClick={() => setMenuOpen(false)} style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none' }}>
+            <img src={logo} alt="HLT" style={{ height: 36, width: 'auto' }} />
+          </Link>
+          <button
+            onClick={() => setMenuOpen(false)}
+            style={{ background: 'none', border: 'none', cursor: 'pointer', padding: 6 }}
+          >
+            <span style={{ fontFamily: 'Material Icons', fontSize: 28, color: C.onSurface }}>close</span>
           </button>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-          {navLinks.map(({ label, to }) => (
+        {/* Nav links */}
+        <div style={{ display: 'flex', flexDirection: 'column', padding: '32px 32px 0', gap: 4, flexShrink: 0 }}>
+          {navLinks.map(({ label, to }, i) => (
             <Link
               key={label}
               to={to}
-              onClick={() => setOpen(false)}
+              onClick={() => setMenuOpen(false)}
               style={{
-                padding: '14px 16px', borderRadius: 12,
                 textDecoration: 'none', color: C.onSurface,
-                fontFamily: 'CobblerSans', fontWeight: 600, fontSize: 17,
+                fontFamily: 'ArtSchoolDropout', fontSize: 36,
+                padding: '14px 0',
+                borderBottom: `1px solid ${C.outline}`,
+                opacity: menuOpen ? 1 : 0,
+                transform: menuOpen ? 'translateY(0)' : 'translateY(12px)',
+                transition: `opacity 0.3s ease ${i * 60}ms, transform 0.3s ease ${i * 60}ms`,
               }}
             >
               {label}
@@ -131,14 +155,32 @@ export default function Navbar() {
           ))}
         </div>
 
-        <div style={{ marginTop: 'auto' }}>
+        {/* Centered Order Now CTA */}
+        <div style={{
+          flex: 1, display: 'flex', flexDirection: 'column',
+          alignItems: 'center', justifyContent: 'center',
+          padding: '40px 32px',
+          gap: 16,
+        }}>
+          <p style={{
+            fontFamily: 'MollicaHandDrawn', fontSize: 22,
+            color: C.primary, margin: 0, textAlign: 'center',
+            opacity: menuOpen ? 1 : 0,
+            transition: 'opacity 0.4s ease 0.3s',
+          }}>
+            Ready for something good?
+          </p>
           <button
-            onClick={() => { setOpen(false); setShowOrder(true) }}
+            onClick={openOrder}
             style={{
-              width: '100%', padding: 16, borderRadius: 9999,
+              padding: '20px 48px', borderRadius: 9999,
               background: C.primary, color: C.onPrimary, border: 'none',
-              fontFamily: 'CobblerSans', fontWeight: 700, fontSize: 16,
+              fontFamily: 'ArtSchoolDropout', fontSize: 22,
               cursor: 'pointer',
+              boxShadow: '0 6px 28px rgba(76,100,87,0.3)',
+              opacity: menuOpen ? 1 : 0,
+              transform: menuOpen ? 'scale(1)' : 'scale(0.9)',
+              transition: 'opacity 0.4s ease 0.35s, transform 0.4s cubic-bezier(0.34,1.56,0.64,1) 0.35s',
             }}
           >
             Order Now
@@ -147,9 +189,17 @@ export default function Navbar() {
       </div>
 
       <style>{`
+        /* Desktop */
+        @media (min-width: 769px) {
+          .desktop-nav { display: flex !important; }
+          .mobile-nav  { display: none !important; }
+          .nav-brand-name { display: inline !important; }
+        }
+        /* Mobile */
         @media (max-width: 768px) {
           .desktop-nav { display: none !important; }
-          .mobile-menu-btn { display: flex !important; }
+          .mobile-nav  { display: flex !important; }
+          .nav-brand-name { display: none !important; }
         }
       `}</style>
 

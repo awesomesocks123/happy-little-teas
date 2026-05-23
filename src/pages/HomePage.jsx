@@ -369,9 +369,9 @@ export default function HomePage() {
               © 2026 Happy Little Teas. All rights reserved.
             </p>
           </div>
-          <div style={{ display: 'flex', gap: 24 }}>
-            {['Home', 'Menu', 'Our Story', 'Find Us'].map(l => (
-              <a key={l} href="#" style={{ fontFamily: 'CobblerSans', fontSize: 14, color: '#9ca3af', textDecoration: 'none' }}>{l}</a>
+          <div style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
+            {[['Home','/'],['Menu','/menu'],['Our Story','/story'],['Find Us','/find-us']].map(([l, href]) => (
+              <a key={l} href={href} style={{ fontFamily: 'CobblerSans', fontSize: 14, color: '#9ca3af', textDecoration: 'none' }}>{l}</a>
             ))}
           </div>
         </Container>
