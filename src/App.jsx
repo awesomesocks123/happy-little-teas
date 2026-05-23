@@ -1,15 +1,20 @@
-import logo from './assets/images/HLT_Logo_2.0_Update.png'
+import { Routes, Route } from 'react-router-dom'
+import Navbar from './components/Navbar'
+import BottomNav from './components/BottomNav'
+import HomePage from './pages/HomePage'
+import MenuPage from './pages/MenuPage'
 
 export default function App() {
   return (
-    <main style={{ padding: '40px 24px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '24px' }}>
-      <img src={logo} alt="HLT Logo" style={{ width: 160, height: 'auto' }} />
-      <h1 style={{ fontFamily: 'ArtSchoolDropout', color: '#4c6457', fontSize: 32, margin: 0, textAlign: 'center' }}>
-        Happy Little Teas
-      </h1>
-      <p style={{ fontFamily: 'MollicaHandDrawn', fontSize: 24, margin: 0, color: '#8c4e37', textAlign: 'center' }}>
-        Boba & Beyond
-      </p>
-    </main>
+    <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100svh' }}>
+      <Navbar />
+      <main style={{ flex: 1, paddingBottom: 80 }}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/menu" element={<MenuPage />} />
+        </Routes>
+      </main>
+      <BottomNav />
+    </div>
   )
 }
