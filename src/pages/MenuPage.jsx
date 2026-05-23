@@ -195,7 +195,7 @@ export default function MenuPage() {
         padding: '56px 0 0',
       }}>
         <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 32px' }}>
-          <p style={{ fontFamily: 'MollicaHandDrawn', fontSize: 20, color: C.secondary, margin: '0 0 6px' }}>
+          <p style={{ fontFamily: 'MollicaHandDrawn', fontWeight: 300, fontSize: 20, color: C.secondary, margin: '0 0 6px' }}>
             Handcrafted with love
           </p>
           <h1 style={{

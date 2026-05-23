@@ -47,7 +47,7 @@ export default function OurStoryPage() {
         borderBottom: `1px solid ${C.outline}`,
       }}>
         <div style={{ maxWidth: 760, margin: '0 auto', padding: '0 32px', textAlign: 'center' }}>
-          <p style={{ fontFamily: 'MollicaHandDrawn', fontSize: 22, color: C.secondary, margin: '0 0 12px' }}>
+          <p style={{ fontFamily: 'MollicaHandDrawn', fontWeight: 300, fontSize: 22, color: C.secondary, margin: '0 0 12px' }}>
             Where it all began
           </p>
           <h1 style={{
@@ -73,7 +73,7 @@ export default function OurStoryPage() {
         <div className="story-split" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 48, alignItems: 'center' }}>
           <PhotoSlot label="Inside the shop — add a photo here" />
           <div>
-            <p style={{ fontFamily: 'MollicaHandDrawn', fontSize: 20, color: C.secondary, margin: '0 0 8px' }}>
+            <p style={{ fontFamily: 'MollicaHandDrawn', fontWeight: 300, fontSize: 20, color: C.secondary, margin: '0 0 8px' }}>
               A cozy corner of calm
             </p>
             <h2 style={{ fontFamily: 'ArtSchoolDropout', fontSize: 'clamp(22px, 3vw, 32px)', color: C.onSurface, margin: '0 0 18px' }}>
@@ -98,7 +98,7 @@ export default function OurStoryPage() {
       }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 32px' }}>
           <div style={{ textAlign: 'center', marginBottom: 48 }}>
-            <p style={{ fontFamily: 'MollicaHandDrawn', fontSize: 20, color: C.secondary, margin: '0 0 8px' }}>
+            <p style={{ fontFamily: 'MollicaHandDrawn', fontWeight: 300, fontSize: 20, color: C.secondary, margin: '0 0 8px' }}>
               The people behind every cup
             </p>
             <h2 style={{ fontFamily: 'ArtSchoolDropout', fontSize: 'clamp(22px, 3vw, 32px)', color: C.onSurface, margin: 0 }}>
@@ -130,7 +130,7 @@ export default function OurStoryPage() {
       <section style={{ maxWidth: 1200, margin: '0 auto', padding: '72px 32px' }}>
         <div className="story-split-reverse" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 48, alignItems: 'center' }}>
           <div>
-            <p style={{ fontFamily: 'MollicaHandDrawn', fontSize: 20, color: C.secondary, margin: '0 0 8px' }}>
+            <p style={{ fontFamily: 'MollicaHandDrawn', fontWeight: 300, fontSize: 20, color: C.secondary, margin: '0 0 8px' }}>
               Rooted in care
             </p>
             <h2 style={{ fontFamily: 'ArtSchoolDropout', fontSize: 'clamp(22px, 3vw, 32px)', color: C.onSurface, margin: '0 0 18px' }}>
@@ -173,7 +173,7 @@ export default function OurStoryPage() {
       {/* ── Contact Us ── */}
       <section style={{ padding: '72px 0', borderTop: `1px solid ${C.outline}` }}>
         <div style={{ maxWidth: 640, margin: '0 auto', padding: '0 32px', textAlign: 'center' }}>
-          <p style={{ fontFamily: 'MollicaHandDrawn', fontSize: 20, color: C.secondary, margin: '0 0 8px' }}>
+          <p style={{ fontFamily: 'MollicaHandDrawn', fontWeight: 300, fontSize: 20, color: C.secondary, margin: '0 0 8px' }}>
             We'd love to hear from you
           </p>
           <h2 style={{ fontFamily: 'ArtSchoolDropout', fontSize: 'clamp(22px, 3vw, 36px)', color: C.onSurface, margin: '0 0 16px' }}>

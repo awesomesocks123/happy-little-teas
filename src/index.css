@@ -28,7 +28,7 @@
 @font-face {
   font-family: 'MollicaHandDrawn';
   src: url('./assets/fonts/mollica-hand-drawn-script-2024-11-25-23-23-18-utc/MollicaVF.ttf') format('truetype');
-  font-weight: 400;
+  font-weight: 100 900;
 }
 @font-face {
   font-family: 'CobblerSans';
@@ -117,6 +117,12 @@
   --radius-lg: 1rem;
   --radius-xl: 1.5rem;
   --radius-full: 9999px;
+}
+
+/* MollicaHandDrawn — light weight sitewide for a slimmer cursive feel */
+.mollica {
+  font-family: 'MollicaHandDrawn', cursive;
+  font-weight: 300;
 }
 
 /* ── Base ── */
