@@ -67,6 +67,81 @@ function BobaBubble({ style }) {
   )
 }
 
+// ── Boba & jelly bottom strip ─────────────────────────────────────────────
+// Mimics the pearls and jellies sitting at the bottom of a boba cup.
+const bobaConfig = [
+  // [x%, size, color, type, animDelay]   type: 'boba' | 'jelly'
+  [ 2,  22, '#3b2008', 'boba',  '0s'   ],
+  [ 5,  18, '#5a3015', 'boba',  '0.4s' ],
+  [ 8,  24, '#2e1a08', 'boba',  '1.1s' ],
+  [11,  20, '#4a2510', 'boba',  '0.7s' ],
+  [14,  16, '#3b2008', 'boba',  '1.8s' ],
+  [17,  25, '#5a3015', 'boba',  '0.3s' ],
+  [20,  19, '#2e1a08', 'boba',  '1.4s' ],
+  [23,  22, '#3b2008', 'boba',  '0.9s' ],
+  // jellies start
+  [27,  20, '#8fa899', 'jelly', '0.5s' ],
+  [30,  17, '#feae91', 'jelly', '1.2s' ],
+  [33,  22, '#b6a06e', 'jelly', '0.2s' ],
+  [36,  18, '#8fa899', 'jelly', '1.6s' ],
+  // more boba
+  [40,  23, '#3b2008', 'boba',  '0.8s' ],
+  [43,  17, '#5a3015', 'boba',  '0.1s' ],
+  [46,  21, '#2e1a08', 'boba',  '1.3s' ],
+  [49,  25, '#3b2008', 'boba',  '0.6s' ],
+  // more jellies
+  [53,  19, '#feae91', 'jelly', '1.0s' ],
+  [56,  22, '#b6a06e', 'jelly', '0.4s' ],
+  [59,  16, '#8fa899', 'jelly', '1.7s' ],
+  // boba
+  [62,  24, '#5a3015', 'boba',  '0.3s' ],
+  [65,  20, '#3b2008', 'boba',  '1.1s' ],
+  [68,  18, '#2e1a08', 'boba',  '0.7s' ],
+  [71,  22, '#3b2008', 'boba',  '1.5s' ],
+  // jellies
+  [75,  20, '#8fa899', 'jelly', '0.9s' ],
+  [78,  17, '#feae91', 'jelly', '0.2s' ],
+  [81,  23, '#b6a06e', 'jelly', '1.3s' ],
+  // boba
+  [84,  19, '#5a3015', 'boba',  '0.5s' ],
+  [87,  24, '#3b2008', 'boba',  '1.0s' ],
+  [90,  20, '#2e1a08', 'boba',  '1.8s' ],
+  [93,  17, '#3b2008', 'boba',  '0.4s' ],
+  [96,  22, '#5a3015', 'boba',  '1.2s' ],
+]
+
+function BobaBottom() {
+  return (
+    <div style={{
+      position: 'absolute', bottom: 0, left: 0, right: 0,
+      height: 52, pointerEvents: 'none', overflow: 'hidden',
+    }}>
+      {bobaConfig.map(([x, size, color, type, delay], i) => {
+        const isJelly = type === 'jelly'
+        // jellies: slightly squarish rounded rect, tilted
+        const jRot = (i % 5 - 2) * 12
+        return (
+          <div
+            key={i}
+            style={{
+              position: 'absolute',
+              left: `${x}%`,
+              bottom: `${4 + (i % 3) * 6}px`,
+              width: size,
+              height: isJelly ? size * 0.72 : size,
+              borderRadius: isJelly ? 5 : '50%',
+              background: color,
+              opacity: isJelly ? 0.55 : 0.78,
+              '--boba-base': isJelly ? `rotate(${jRot}deg)` : '',
+              animation: `bobaSink 3s ease-in-out infinite ${delay}`,
+            }}
+          />
+        )
+      })}
+    </div>
+  )
+}
+
 // ── Hero drink cards ──────────────────────────────────────────────────────
 const heroCardData = [
   { icon: '🧋', name: 'Classic Brown Sugar', tag: 'Bestseller', bg: '#c8ddd3', color: C.onPrimaryContainer },
@@ -462,6 +537,7 @@ export default function HomePage() {
 
           <HeroCards visible={heroVisible} />
         </Container>
+        <BobaBottom />
       </section>
 
       {/* ══ MARQUEE TICKER ════════════════════════════════════════════════ */}
@@ -553,6 +629,7 @@ export default function HomePage() {
             </Reveal>
           </div>
         </Container>
+        <BobaBottom />
       </section>
 
       {/* ══ REVIEWS ═══════════════════════════════════════════════════════ */}
@@ -711,12 +788,17 @@ export default function HomePage() {
             ))}
           </div>
         </Container>
+        <BobaBottom />
       </footer>
 
       {showOrder && <OrderModal onClose={() => setShowOrder(false)} />}
 
       {/* ══ KEYFRAMES ═════════════════════════════════════════════════════ */}
       <style>{`
+        @keyframes bobaSink {
+          0%,100% { transform: var(--boba-base) translateY(0px); }
+          50%      { transform: var(--boba-base) translateY(-4px); }
+        }
         @keyframes leafFloat1 {
           0%,100% { transform: translateY(0px) rotate(0deg); }
           33%      { transform: translateY(-14px) rotate(4deg); }
