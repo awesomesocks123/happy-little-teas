@@ -490,7 +490,7 @@ export default function HomePage() {
             </div>
 
             <p style={{
-              fontFamily: 'CobblerSans', fontSize: 16, color: C.onSurfaceVariant,
+              fontFamily: 'CobblerSans', fontSize: 16, color: '#8a8580',
               lineHeight: 1.8, maxWidth: 480, margin: 0,
               opacity: heroVisible ? 1 : 0,
               transform: heroVisible ? 'none' : 'translateY(20px)',
