@@ -74,9 +74,9 @@ const heroCardData = [
   { icon: '🥭', name: 'Mango Sunshine',       tag: 'Popular',     bg: '#fde8b8', color: '#7a4a00' },
 ]
 const basePos = [
-  { x: -88, rot: -11, z: 1 },
+  { x: -76, rot: -11, z: 1 },
   { x:   0, rot:   0, z: 3 },
-  { x:  88, rot:  11, z: 2 },
+  { x:  76, rot:  11, z: 2 },
 ]
 
 function HeroCards({ visible }) {
@@ -109,7 +109,7 @@ function HeroCards({ visible }) {
       style={{
         position: 'relative', zIndex: 2,
         display: 'flex', justifyContent: 'center', alignItems: 'center',
-        height: 'clamp(240px, 32vw, 390px)',
+        height: 'clamp(320px, 32vw, 400px)',
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0)' : 'translateY(28px)',
         transition: 'opacity 0.8s ease 0.25s, transform 0.8s cubic-bezier(0.22,1,0.36,1) 0.25s',
@@ -121,15 +121,15 @@ function HeroCards({ visible }) {
           key={card.name}
           style={{
             position: 'absolute',
-            width: 'clamp(115px, 15vw, 168px)',
+            width: 'clamp(148px, 15vw, 172px)',
             aspectRatio: '3/4',
             borderRadius: 20,
             background: card.bg,
             zIndex: basePos[i].z,
             overflow: 'hidden',
             display: 'flex', flexDirection: 'column',
-            alignItems: 'center', justifyContent: 'center', gap: 8,
-            padding: '18px 12px 16px',
+            alignItems: 'center', justifyContent: 'center', gap: 10,
+            padding: '22px 14px 20px',
             transform: getTransform(i),
             boxShadow: i === 1
               ? `0 ${active ? 22 : 12}px ${active ? 60 : 42}px rgba(76,100,87,0.22)`
@@ -141,15 +141,15 @@ function HeroCards({ visible }) {
         >
           {/* Thin top color accent */}
           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 3, background: card.color, opacity: 0.25 }} />
-          <div style={{ fontSize: 'clamp(36px, 5vw, 52px)', lineHeight: 1 }}>{card.icon}</div>
+          <div style={{ fontSize: 'clamp(48px, 5vw, 56px)', lineHeight: 1 }}>{card.icon}</div>
           <span style={{
-            fontFamily: 'CobblerSans', fontWeight: 700, fontSize: 10,
+            fontFamily: 'CobblerSans', fontWeight: 700, fontSize: 11,
             background: 'rgba(255,255,255,0.65)', color: card.color,
             borderRadius: 9999, padding: '3px 9px',
             letterSpacing: '0.06em', textTransform: 'uppercase', whiteSpace: 'nowrap',
           }}>{card.tag}</span>
           <p style={{
-            fontFamily: 'ArtSchoolDropout', fontSize: 'clamp(11px, 1.4vw, 14px)',
+            fontFamily: 'ArtSchoolDropout', fontSize: 'clamp(13px, 1.4vw, 15px)',
             color: card.color, margin: 0, textAlign: 'center', lineHeight: 1.3,
           }}>{card.name}</p>
           {/* Decorative ghost leaf bottom-right */}
