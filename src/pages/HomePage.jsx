@@ -492,12 +492,17 @@ export default function HomePage() {
         padding: '72px 0',
         position: 'relative', overflow: 'hidden',
       }}>
-        {/* Decorative leaves on dark bg */}
+        {/* Decorative botanicals on dark bg */}
         <Leaf style={{ position: 'absolute', top: '-10%', right: '5%', width: 160, color: '#fff', animation: 'leafFloat2 12s ease-in-out infinite', opacity: 0.06 }} />
         <Leaf style={{ position: 'absolute', bottom: '-8%', right: '22%', width: 100, color: '#fff', animation: 'leafFloat3 10s ease-in-out infinite 2s', opacity: 0.05 }} />
+        <Leaf style={{ position: 'absolute', top: '20%', left: '28%', width: 70, color: '#fff', animation: 'leafFloat1 14s ease-in-out infinite 1s', opacity: 0.04, transform: 'rotate(-20deg)' }} />
         <SmallLeaf style={{ position: 'absolute', bottom: '-5%', left: '8%', width: 80, color: '#fff', animation: 'leafFloat1 9s ease-in-out infinite', opacity: 0.07 }} />
-        <JasmineFlower style={{ position: 'absolute', top: '15%', left: '3%', width: 60, color: '#fff', animation: 'leafFloat1 11s ease-in-out infinite 1s', opacity: 0.07 }} />
-        <JasmineFlower style={{ position: 'absolute', bottom: '10%', right: '6%', width: 50, color: '#fff', animation: 'leafFloat2 9s ease-in-out infinite', opacity: 0.06 }} />
+        <SmallLeaf style={{ position: 'absolute', top: '5%', left: '18%', width: 55, color: '#fff', animation: 'leafFloat3 11s ease-in-out infinite 2.5s', opacity: 0.06, transform: 'rotate(30deg)' }} />
+        <SmallLeaf style={{ position: 'absolute', bottom: '5%', right: '38%', width: 48, color: '#fff', animation: 'leafFloat2 8s ease-in-out infinite 1s', opacity: 0.05 }} />
+        <JasmineFlower style={{ position: 'absolute', top: '15%', left: '3%', width: 60, color: '#fff', animation: 'leafFloat1 11s ease-in-out infinite 1s', opacity: 0.08 }} />
+        <JasmineFlower style={{ position: 'absolute', bottom: '10%', right: '6%', width: 50, color: '#fff', animation: 'leafFloat2 9s ease-in-out infinite', opacity: 0.07 }} />
+        <JasmineFlower style={{ position: 'absolute', top: '50%', right: '14%', width: 44, color: '#fff', animation: 'leafFloat3 10s ease-in-out infinite 3s', opacity: 0.06 }} />
+        <JasmineFlower style={{ position: 'absolute', bottom: '20%', left: '45%', width: 38, color: '#fff', animation: 'leafFloat1 13s ease-in-out infinite 0.5s', opacity: 0.05 }} />
 
         <Container style={{ position: 'relative', zIndex: 1 }}>
           <div className="about-strip" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 40, alignItems: 'center', textAlign: 'center' }}>
@@ -683,8 +688,15 @@ export default function HomePage() {
       </section>
 
       {/* ══ FOOTER ════════════════════════════════════════════════════════ */}
-      <footer style={{ background: C.onSurface, padding: '48px 0' }}>
-        <Container style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: 24 }}>
+      <footer style={{ background: C.onSurface, padding: '48px 0', position: 'relative', overflow: 'hidden' }}>
+        {/* Footer botanicals */}
+        <Leaf style={{ position: 'absolute', top: '-20%', right: '3%', width: 110, color: C.primaryContainer, animation: 'leafFloat2 13s ease-in-out infinite', opacity: 0.08 }} />
+        <Leaf style={{ position: 'absolute', bottom: '-15%', left: '2%', width: 90, color: C.primaryContainer, animation: 'leafFloat1 10s ease-in-out infinite 1s', opacity: 0.07 }} />
+        <SmallLeaf style={{ position: 'absolute', top: '10%', left: '30%', width: 52, color: C.primaryContainer, animation: 'leafFloat3 9s ease-in-out infinite 2s', opacity: 0.07, transform: 'rotate(25deg)' }} />
+        <SmallLeaf style={{ position: 'absolute', bottom: '5%', right: '25%', width: 44, color: C.primaryContainer, animation: 'leafFloat2 11s ease-in-out infinite 0.5s', opacity: 0.06 }} />
+        <JasmineFlower style={{ position: 'absolute', top: '15%', right: '18%', width: 48, color: C.primaryContainer, animation: 'leafFloat1 12s ease-in-out infinite 1.5s', opacity: 0.08 }} />
+        <JasmineFlower style={{ position: 'absolute', bottom: '10%', left: '18%', width: 40, color: C.primaryContainer, animation: 'leafFloat3 10s ease-in-out infinite 3s', opacity: 0.07 }} />
+        <Container style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: 24, position: 'relative', zIndex: 1 }}>
           <div>
             <p style={{ fontFamily: 'ArtSchoolDropout', fontSize: 20, color: C.primaryContainer, margin: '0 0 4px' }}>Happy Little Teas</p>
             <p style={{ fontFamily: 'Dancing Script', fontWeight: 600, fontSize: 20, color: 'rgba(179,205,189,0.7)', margin: '0 0 8px' }}>Steeped in joy, poured with love.</p>
