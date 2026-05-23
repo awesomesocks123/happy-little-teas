@@ -163,7 +163,7 @@ export default function Navbar() {
           gap: 16,
         }}>
           <p style={{
-            fontFamily: 'Dancing Script', fontWeight: 500, fontSize: 22,
+            fontFamily: 'Dancing Script', fontWeight: 600, fontSize: 28,
             color: C.primary, margin: 0, textAlign: 'center',
             opacity: menuOpen ? 1 : 0,
             transition: 'opacity 0.4s ease 0.3s',
