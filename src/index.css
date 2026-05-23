@@ -1,0 +1,144 @@
+@import "tailwindcss";
+
+/* ── Fonts ── */
+@font-face {
+  font-family: 'ArtSchoolDropout';
+  src: url('./assets/fonts/Art School Dropout/ARTSCHOOLDROPOUT-Regular.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ArtSchoolDropout';
+  src: url('./assets/fonts/Art School Dropout/ARTSCHOOLDROPOUT-RegularItalic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'ArtSchoolDropout';
+  src: url('./assets/fonts/Art School Dropout/ARTSCHOOLDROPOUT-Skinny.otf') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'ArtSchoolDropout';
+  src: url('./assets/fonts/Art School Dropout/ARTSCHOOLDROPOUT-SkinnyItalic.otf') format('opentype');
+  font-weight: 300;
+  font-style: italic;
+}
+@font-face {
+  font-family: 'MollicaHandDrawn';
+  src: url('./assets/fonts/mollica-hand-drawn-script-2024-11-25-23-23-18-utc/MollicaVF.ttf') format('truetype');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'CobblerSans';
+  src: url('./assets/fonts/Cobbler_Sans/Cobbler-Sans-Light.otf') format('opentype');
+  font-weight: 300;
+}
+@font-face {
+  font-family: 'CobblerSans';
+  src: url('./assets/fonts/Cobbler_Sans/Cobbler-Sans-Regular.otf') format('opentype');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'CobblerSans';
+  src: url('./assets/fonts/Cobbler_Sans/Cobbler-Sans-Medium.otf') format('opentype');
+  font-weight: 500;
+}
+@font-face {
+  font-family: 'CobblerSans';
+  src: url('./assets/fonts/Cobbler_Sans/Cobbler-Sans-SemiBold.otf') format('opentype');
+  font-weight: 600;
+}
+@font-face {
+  font-family: 'CobblerSans';
+  src: url('./assets/fonts/Cobbler_Sans/Cobbler-Sans-Bold.otf') format('opentype');
+  font-weight: 700;
+}
+@font-face {
+  font-family: 'CobblerSans';
+  src: url('./assets/fonts/Cobbler_Sans/Cobbler-Sans-Black.otf') format('opentype');
+  font-weight: 900;
+}
+@font-face {
+  font-family: 'GourmetLeFrench';
+  src: url('./assets/fonts/Gourmet Le French/Gourmet Le French.otf') format('opentype');
+  font-weight: 400;
+}
+
+/* ── Design Tokens ── */
+@theme {
+  /* Colors — HLT design system */
+  --color-surface: #fcf9f3;
+  --color-surface-dim: #dcdad4;
+  --color-surface-bright: #fcf9f3;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f6f3ed;
+  --color-surface-container: #f0eee8;
+  --color-surface-container-high: #ebe8e2;
+  --color-surface-container-highest: #e5e2dc;
+  --color-on-surface: #1c1c18;
+  --color-on-surface-variant: #424844;
+  --color-outline: #727974;
+  --color-outline-variant: #c2c8c2;
+
+  --color-primary: #4c6457;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #8fa899;
+  --color-on-primary-container: #273d32;
+  --color-inverse-primary: #b3cdbd;
+
+  --color-secondary: #8c4e37;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #feae91;
+  --color-on-secondary-container: #793f29;
+
+  --color-tertiary: #6e5c30;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #b6a06e;
+  --color-on-tertiary-container: #46370e;
+
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+
+  --color-background: #fcf9f3;
+  --color-on-background: #1c1c18;
+
+  /* Typography */
+  --font-display: 'MollicaHandDrawn', cursive;
+  --font-headline: 'ArtSchoolDropout', sans-serif;
+  --font-body: 'CobblerSans', sans-serif;
+  --font-accent: 'GourmetLeFrench', serif;
+
+  /* Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-full: 9999px;
+}
+
+/* ── Base ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #fcf9f3;
+  color: #1c1c18;
+  font-family: 'CobblerSans', sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Mobile-first: center and cap at phone width */
+#root {
+  max-width: 430px;
+  min-height: 100svh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
