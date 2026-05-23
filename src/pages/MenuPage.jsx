@@ -1,5 +1,13 @@
 import { useState } from 'react'
 
+function Container({ children, style }) {
+  return (
+    <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px', ...style }}>
+      {children}
+    </div>
+  )
+}
+
 const C = {
   primary: '#4c6457',
   onPrimary: '#ffffff',
@@ -127,65 +135,68 @@ export default function MenuPage() {
     <div style={{ background: C.surface, minHeight: '100%' }}>
 
       {/* Header */}
-      <div style={{
-        padding: '24px 24px 0',
-        background: `linear-gradient(160deg, #e8f0eb 0%, ${C.surface} 70%)`,
-      }}>
-        <p style={{ fontFamily: 'MollicaHandDrawn', fontSize: 18, color: C.secondary, margin: '0 0 4px' }}>
-          Handcrafted with love
-        </p>
-        <h1 style={{ fontFamily: 'ArtSchoolDropout', fontSize: 28, color: C.onSurface, margin: '0 0 20px' }}>
-          Full Menu
-        </h1>
+      <div style={{ background: `linear-gradient(160deg, #e8f0eb 0%, ${C.surface} 70%)`, padding: '48px 0 0' }}>
+        <Container>
+          <p style={{ fontFamily: 'MollicaHandDrawn', fontSize: 20, color: C.secondary, margin: '0 0 6px' }}>
+            Handcrafted with love
+          </p>
+          <h1 style={{ fontFamily: 'ArtSchoolDropout', fontSize: 'clamp(28px, 4vw, 48px)', color: C.onSurface, margin: '0 0 24px' }}>
+            Full Menu
+          </h1>
 
-        {/* Category pills */}
-        <div style={{
-          display: 'flex', gap: 8, overflowX: 'auto',
-          paddingBottom: 16, scrollbarWidth: 'none', msOverflowStyle: 'none',
-        }}>
-          {categories.map(cat => (
-            <button
-              key={cat}
-              onClick={() => setActiveCategory(cat)}
-              style={{
-                flexShrink: 0,
-                padding: '8px 18px', borderRadius: 9999,
-                background: activeCategory === cat ? C.primary : C.surfaceContainerHigh,
-                color: activeCategory === cat ? C.onPrimary : C.onSurfaceVariant,
-                border: 'none', cursor: 'pointer',
-                fontFamily: 'CobblerSans', fontWeight: 600, fontSize: 14,
-                transition: 'background 0.2s, color 0.2s',
-              }}
-            >
-              {cat}
-            </button>
-          ))}
-        </div>
+          {/* Category pills */}
+          <div style={{
+            display: 'flex', gap: 8, overflowX: 'auto', flexWrap: 'wrap',
+            paddingBottom: 20, scrollbarWidth: 'none', msOverflowStyle: 'none',
+          }}>
+            {categories.map(cat => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                style={{
+                  flexShrink: 0,
+                  padding: '9px 22px', borderRadius: 9999,
+                  background: activeCategory === cat ? C.primary : C.surfaceContainerHigh,
+                  color: activeCategory === cat ? C.onPrimary : C.onSurfaceVariant,
+                  border: 'none', cursor: 'pointer',
+                  fontFamily: 'CobblerSans', fontWeight: 600, fontSize: 14,
+                  transition: 'background 0.2s, color 0.2s',
+                }}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        </Container>
       </div>
 
       {/* Menu sections */}
-      <div style={{ padding: '8px 24px 24px' }}>
+      <Container style={{ padding: '32px 24px 80px' }}>
         {filteredMenu.map(section => (
-          <div key={section.category} style={{ marginBottom: 32 }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
-              <h2 style={{ fontFamily: 'ArtSchoolDropout', fontSize: 20, color: C.primary, margin: 0 }}>
+          <div key={section.category} style={{ marginBottom: 48 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 20 }}>
+              <h2 style={{ fontFamily: 'ArtSchoolDropout', fontSize: 22, color: C.primary, margin: 0, whiteSpace: 'nowrap' }}>
                 {section.category}
               </h2>
               <div style={{ flex: 1, height: 1, background: C.outline }} />
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {/* Grid: 1 col mobile, 2 col tablet, 3 col desktop */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+              gap: 16,
+            }}>
               {section.items.map(item => (
                 <div
                   key={item.name}
                   style={{
                     background: C.surfaceContainerLow,
                     border: `1px solid ${C.outline}`,
-                    borderRadius: 16, padding: '16px',
-                    display: 'flex', gap: 12, alignItems: 'flex-start',
+                    borderRadius: 18, padding: 20,
+                    display: 'flex', gap: 14, alignItems: 'flex-start',
                   }}
                 >
-                  {/* Icon bubble */}
                   <div style={{
                     width: 52, height: 52, borderRadius: 12, flexShrink: 0,
                     background: C.primaryContainer,
@@ -197,19 +208,15 @@ export default function MenuPage() {
                   </div>
 
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ display: 'flex', gap: 6, marginBottom: 4, flexWrap: 'wrap' }}>
-                      {item.tag && <Tag label={item.tag} icon={item.tagIcon} />}
-                    </div>
-                    <h3 style={{
-                      fontFamily: 'ArtSchoolDropout', fontSize: 16, color: C.onSurface,
-                      margin: '0 0 4px', lineHeight: 1.3,
-                    }}>
+                    {item.tag && (
+                      <div style={{ marginBottom: 6 }}>
+                        <Tag label={item.tag} icon={item.tagIcon} />
+                      </div>
+                    )}
+                    <h3 style={{ fontFamily: 'ArtSchoolDropout', fontSize: 16, color: C.onSurface, margin: '0 0 4px', lineHeight: 1.3 }}>
                       {item.name}
                     </h3>
-                    <p style={{
-                      fontFamily: 'CobblerSans', fontSize: 13, color: C.onSurfaceVariant,
-                      margin: '0 0 10px', lineHeight: 1.5,
-                    }}>
+                    <p style={{ fontFamily: 'CobblerSans', fontSize: 13, color: C.onSurfaceVariant, margin: '0 0 12px', lineHeight: 1.5 }}>
                       {item.desc}
                     </p>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -235,22 +242,21 @@ export default function MenuPage() {
             </div>
           </div>
         ))}
-      </div>
+      </Container>
 
-      {/* Cart FAB */}
+      {/* Cart FAB — floats above footer */}
       {cartCount > 0 && (
         <button
           onClick={() => setShowCart(true)}
           style={{
-            position: 'fixed', bottom: 92, left: '50%', transform: 'translateX(-50%)',
+            position: 'fixed', bottom: 32, left: '50%', transform: 'translateX(-50%)',
             background: C.primary, color: C.onPrimary,
             border: 'none', borderRadius: 9999,
-            padding: '14px 28px',
+            padding: '14px 32px',
             fontFamily: 'CobblerSans', fontWeight: 700, fontSize: 15,
             cursor: 'pointer', display: 'flex', alignItems: 'center', gap: 10,
-            boxShadow: '0 4px 20px rgba(76,100,87,0.35)',
-            zIndex: 40,
-            whiteSpace: 'nowrap',
+            boxShadow: '0 4px 24px rgba(76,100,87,0.4)',
+            zIndex: 40, whiteSpace: 'nowrap',
           }}
         >
           <span style={{ fontFamily: 'Material Icons', fontSize: 20 }}>shopping_bag</span>

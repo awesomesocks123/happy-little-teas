@@ -134,11 +134,22 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Mobile-first: center and cap at phone width */
 #root {
-  max-width: 430px;
+  width: 100%;
   min-height: 100svh;
-  margin: 0 auto;
   display: flex;
   flex-direction: column;
+}
+
+/* ── Responsive layout helpers ── */
+@media (min-width: 768px) {
+  .hero-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+@media (min-width: 900px) {
+  .story-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
 }
