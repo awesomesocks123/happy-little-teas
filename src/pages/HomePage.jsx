@@ -81,9 +81,30 @@ const basePos = [
 ]
 
 function HeroCards({ visible }) {
-  const [mouse, setMouse]   = useState({ x: 0.5, y: 0.5 })
-  const [active, setActive] = useState(false)
+  const [mouse, setMouse]    = useState({ x: 0.5, y: 0.5 })
+  const [active, setActive]  = useState(false)   // desktop hover
+  const [spread, setSpread]  = useState(0)        // 0–1 scroll-driven (mobile)
   const ref = useRef(null)
+
+  // Scroll-driven spread — only runs when hover isn't available (touch devices)
+  useEffect(() => {
+    const isTouchOnly = !window.matchMedia('(hover: hover)').matches
+    if (!isTouchOnly) return
+
+    function onScroll() {
+      if (!ref.current) return
+      const rect = ref.current.getBoundingClientRect()
+      // progress: 0 when card top is at 80% of viewport, 1 when at 20%
+      const progress = Math.max(0, Math.min(1,
+        (window.innerHeight * 0.8 - rect.top) / (window.innerHeight * 0.6)
+      ))
+      setSpread(progress)
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    onScroll() // initialise
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   function onMove(e) {
     const r = ref.current.getBoundingClientRect()
@@ -92,6 +113,16 @@ function HeroCards({ visible }) {
 
   function getTransform(i) {
     const b = basePos[i]
+
+    // Mobile: scroll drives the fan
+    if (spread > 0) {
+      const tx = b.x * (1 + spread * 0.9)
+      const ty = -spread * 18 * (i === 1 ? 1.6 : 0.9)
+      const rot = b.rot * (1 + spread * 0.7)
+      return `translateX(${tx}px) translateY(${ty}px) rotate(${rot}deg)`
+    }
+
+    // Desktop: mouse hover drives the fan
     if (!active) return `translateX(${b.x}px) rotate(${b.rot}deg)`
     const mx = mouse.x - 0.5
     const my = mouse.y - 0.5
@@ -100,6 +131,8 @@ function HeroCards({ visible }) {
     const rot = b.rot * 1.7 + mx * 14 * (i === 0 ? -1 : i === 2 ? 1 : 0)
     return `translateX(${tx}px) translateY(${ty}px) rotate(${rot}deg)`
   }
+
+  const isSpreading = active || spread > 0
 
   return (
     <div
@@ -133,14 +166,14 @@ function HeroCards({ visible }) {
             padding: '22px 14px 20px',
             transform: getTransform(i),
             boxShadow: i === 1
-              ? `0 ${active ? 22 : 12}px ${active ? 60 : 42}px rgba(76,100,87,0.22)`
-              : `0 ${active ? 14 : 6}px ${active ? 38 : 22}px rgba(76,100,87,0.14)`,
+              ? `0 ${isSpreading ? 22 : 12}px ${isSpreading ? 60 : 42}px rgba(76,100,87,0.22)`
+              : `0 ${isSpreading ? 14 : 6}px ${isSpreading ? 38 : 22}px rgba(76,100,87,0.14)`,
+            // scroll spread uses a smooth ease; hover uses snappy tracking
             transition: active
               ? 'transform 0.1s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease'
-              : 'transform 0.55s cubic-bezier(0.34,1.2,0.64,1), box-shadow 0.3s ease',
+              : 'transform 0.6s cubic-bezier(0.34,1.2,0.64,1), box-shadow 0.4s ease',
           }}
         >
-          {/* Thin top color accent */}
           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 3, background: card.color, opacity: 0.25 }} />
           <div style={{ fontSize: 'clamp(48px, 5vw, 56px)', lineHeight: 1 }}>{card.icon}</div>
           <span style={{
@@ -153,12 +186,10 @@ function HeroCards({ visible }) {
             fontFamily: 'ArtSchoolDropout', fontSize: 'clamp(13px, 1.4vw, 15px)',
             color: card.color, margin: 0, textAlign: 'center', lineHeight: 1.3,
           }}>{card.name}</p>
-          {/* Decorative ghost leaf bottom-right */}
           <div style={{ position: 'absolute', bottom: -8, right: -4, opacity: 0.1, fontSize: 44, pointerEvents: 'none' }}>🍃</div>
         </div>
       ))}
-      {/* Hover hint */}
-      {!active && (
+      {!isSpreading && (
         <div style={{
           position: 'absolute', bottom: -28, left: '50%', transform: 'translateX(-50%)',
           fontFamily: 'CobblerSans', fontSize: 11, color: C.onSurfaceVariant,
