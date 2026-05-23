@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
-import logo from '../assets/images/HLT_Logo_2.0_Update.png'
 import OrderModal from '../components/OrderModal'
 
 const C = {
@@ -65,6 +64,110 @@ function BobaBubble({ style }) {
       opacity: 0.12,
       ...style,
     }} />
+  )
+}
+
+// ── Hero drink cards ──────────────────────────────────────────────────────
+const heroCardData = [
+  { icon: '🧋', name: 'Classic Brown Sugar', tag: 'Bestseller', bg: '#c8ddd3', color: C.onPrimaryContainer },
+  { icon: '🍵', name: 'Matcha Cloud',         tag: 'Staff Pick',  bg: '#d4e8d0', color: '#1a4a28' },
+  { icon: '🥭', name: 'Mango Sunshine',       tag: 'Popular',     bg: '#fde8b8', color: '#7a4a00' },
+]
+const basePos = [
+  { x: -88, rot: -11, z: 1 },
+  { x:   0, rot:   0, z: 3 },
+  { x:  88, rot:  11, z: 2 },
+]
+
+function HeroCards({ visible }) {
+  const [mouse, setMouse]   = useState({ x: 0.5, y: 0.5 })
+  const [active, setActive] = useState(false)
+  const ref = useRef(null)
+
+  function onMove(e) {
+    const r = ref.current.getBoundingClientRect()
+    setMouse({ x: (e.clientX - r.left) / r.width, y: (e.clientY - r.top) / r.height })
+  }
+
+  function getTransform(i) {
+    const b = basePos[i]
+    if (!active) return `translateX(${b.x}px) rotate(${b.rot}deg)`
+    const mx = mouse.x - 0.5
+    const my = mouse.y - 0.5
+    const tx = b.x * 1.55 + mx * 52 * (i - 1)
+    const ty = -Math.abs(mx) * 24 - my * 18 * (i === 1 ? 1.4 : 0.8)
+    const rot = b.rot * 1.7 + mx * 14 * (i === 0 ? -1 : i === 2 ? 1 : 0)
+    return `translateX(${tx}px) translateY(${ty}px) rotate(${rot}deg)`
+  }
+
+  return (
+    <div
+      ref={ref}
+      onMouseMove={onMove}
+      onMouseEnter={() => setActive(true)}
+      onMouseLeave={() => setActive(false)}
+      style={{
+        position: 'relative', zIndex: 2,
+        display: 'flex', justifyContent: 'center', alignItems: 'center',
+        height: 'clamp(240px, 32vw, 390px)',
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0)' : 'translateY(28px)',
+        transition: 'opacity 0.8s ease 0.25s, transform 0.8s cubic-bezier(0.22,1,0.36,1) 0.25s',
+        cursor: active ? 'grabbing' : 'grab',
+      }}
+    >
+      {heroCardData.map((card, i) => (
+        <div
+          key={card.name}
+          style={{
+            position: 'absolute',
+            width: 'clamp(115px, 15vw, 168px)',
+            aspectRatio: '3/4',
+            borderRadius: 20,
+            background: card.bg,
+            zIndex: basePos[i].z,
+            overflow: 'hidden',
+            display: 'flex', flexDirection: 'column',
+            alignItems: 'center', justifyContent: 'center', gap: 8,
+            padding: '18px 12px 16px',
+            transform: getTransform(i),
+            boxShadow: i === 1
+              ? `0 ${active ? 22 : 12}px ${active ? 60 : 42}px rgba(76,100,87,0.22)`
+              : `0 ${active ? 14 : 6}px ${active ? 38 : 22}px rgba(76,100,87,0.14)`,
+            transition: active
+              ? 'transform 0.1s cubic-bezier(0.22,1,0.36,1), box-shadow 0.25s ease'
+              : 'transform 0.55s cubic-bezier(0.34,1.2,0.64,1), box-shadow 0.3s ease',
+          }}
+        >
+          {/* Thin top color accent */}
+          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 3, background: card.color, opacity: 0.25 }} />
+          <div style={{ fontSize: 'clamp(36px, 5vw, 52px)', lineHeight: 1 }}>{card.icon}</div>
+          <span style={{
+            fontFamily: 'CobblerSans', fontWeight: 700, fontSize: 10,
+            background: 'rgba(255,255,255,0.65)', color: card.color,
+            borderRadius: 9999, padding: '3px 9px',
+            letterSpacing: '0.06em', textTransform: 'uppercase', whiteSpace: 'nowrap',
+          }}>{card.tag}</span>
+          <p style={{
+            fontFamily: 'ArtSchoolDropout', fontSize: 'clamp(11px, 1.4vw, 14px)',
+            color: card.color, margin: 0, textAlign: 'center', lineHeight: 1.3,
+          }}>{card.name}</p>
+          {/* Decorative ghost leaf bottom-right */}
+          <div style={{ position: 'absolute', bottom: -8, right: -4, opacity: 0.1, fontSize: 44, pointerEvents: 'none' }}>🍃</div>
+        </div>
+      ))}
+      {/* Hover hint */}
+      {!active && (
+        <div style={{
+          position: 'absolute', bottom: -28, left: '50%', transform: 'translateX(-50%)',
+          fontFamily: 'CobblerSans', fontSize: 11, color: C.onSurfaceVariant,
+          opacity: 0.6, whiteSpace: 'nowrap', pointerEvents: 'none',
+          letterSpacing: '0.04em',
+        }}>
+          hover to explore ✦
+        </div>
+      )}
+    </div>
   )
 }
 
@@ -266,7 +369,7 @@ export default function HomePage() {
       <section style={{
         background: `linear-gradient(145deg, #c8ddd3 0%, #deeae3 35%, ${C.surface} 70%)`,
         position: 'relative', overflow: 'hidden',
-        padding: '80px 0 72px',
+        padding: '80px 0 88px',
       }}>
 
         {/* Floating botanical decorations */}
@@ -357,59 +460,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Fanned drink cards */}
-          <div className="hero-cards" style={{
-            position: 'relative', zIndex: 2,
-            display: 'flex', justifyContent: 'center', alignItems: 'center',
-            height: 380,
-            opacity: heroVisible ? 1 : 0,
-            transform: heroVisible ? 'translateY(0)' : 'translateY(28px)',
-            transition: 'opacity 0.8s ease 0.25s, transform 0.8s cubic-bezier(0.22,1,0.36,1) 0.25s',
-          }}>
-            {[
-              { icon: '🧋', name: 'Classic Brown Sugar', tag: 'Bestseller', bg: '#c8ddd3', color: C.onPrimaryContainer, rotate: -9, x: -110, z: 1 },
-              { icon: '🍵', name: 'Matcha Cloud',         tag: 'Staff Pick',  bg: '#d4e8d0', color: '#1a4a28',           rotate:  0, x:   0,  z: 3 },
-              { icon: '🥭', name: 'Mango Sunshine',       tag: 'Popular',     bg: '#fde8b8', color: '#7a4a00',           rotate:  9, x:  110, z: 2 },
-            ].map((card, i) => (
-              <div key={card.name} style={{
-                position: 'absolute',
-                left: '50%',
-                width: 190,
-                borderRadius: 24,
-                background: card.bg,
-                boxShadow: i === 1
-                  ? '0 16px 56px rgba(76,100,87,0.22)'
-                  : '0 8px 32px rgba(76,100,87,0.14)',
-                transform: `translateX(calc(-50% + ${card.x}px)) rotate(${card.rotate}deg)`,
-                zIndex: card.z,
-                overflow: 'hidden',
-                padding: '28px 20px 24px',
-                display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10,
-                animation: `floatBob ${4 + i * 0.8}s ease-in-out infinite ${i * 0.6}s`,
-              }}>
-                <div style={{ fontSize: 52, lineHeight: 1 }}>{card.icon}</div>
-                <span style={{
-                  fontFamily: 'CobblerSans', fontWeight: 700, fontSize: 10,
-                  background: 'rgba(255,255,255,0.55)', color: card.color,
-                  borderRadius: 9999, padding: '3px 10px', letterSpacing: '0.06em', textTransform: 'uppercase',
-                }}>{card.tag}</span>
-                <p style={{
-                  fontFamily: 'ArtSchoolDropout', fontSize: 15,
-                  color: card.color, margin: 0, textAlign: 'center', lineHeight: 1.25,
-                }}>{card.name}</p>
-              </div>
-            ))}
-            {/* Small logo tucked in bottom-right */}
-            <div style={{
-              position: 'absolute', bottom: 4, right: 0, zIndex: 10,
-              background: 'rgba(255,255,255,0.82)', borderRadius: '50%',
-              width: 56, height: 56, display: 'flex', alignItems: 'center', justifyContent: 'center',
-              boxShadow: '0 4px 16px rgba(76,100,87,0.18)',
-              backdropFilter: 'blur(6px)',
-            }}>
-              <img src={logo} alt="HLT" style={{ width: 44, height: 'auto' }} />
-            </div>
-          </div>
+          <HeroCards visible={heroVisible} />
         </Container>
       </section>
 
@@ -685,10 +736,8 @@ export default function HomePage() {
           to   { transform: translateX(-50%); }
         }
 
-        .hero-cards { display: none; }
         @media (min-width: 768px) {
           .hero-grid    { grid-template-columns: 1fr 1fr !important; }
-          .hero-cards   { display: flex !important; }
           .about-strip  { grid-template-columns: 1fr 1fr !important; text-align: left !important; }
         }
         @media (min-width: 900px) {
