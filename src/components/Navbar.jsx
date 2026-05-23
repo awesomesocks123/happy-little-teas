@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { Link, NavLink } from 'react-router-dom'
 import logo from '../assets/images/HLT_Logo_2.0_Update.png'
+import OrderModal from './OrderModal'
 
 const C = {
   primary: '#4c6457',
@@ -21,12 +22,7 @@ const navLinks = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
-  const navigate = useNavigate()
-
-  function handleOrder() {
-    setOpen(false)
-    navigate('/menu')
-  }
+  const [showOrder, setShowOrder] = useState(false)
 
   return (
     <>
@@ -68,7 +64,7 @@ export default function Navbar() {
               </NavLink>
             ))}
             <button
-              onClick={handleOrder}
+              onClick={() => { setOpen(false); setShowOrder(true) }}
               style={{
                 padding: '10px 22px', borderRadius: 9999,
                 background: C.primary, color: C.onPrimary, border: 'none',
@@ -137,7 +133,7 @@ export default function Navbar() {
 
         <div style={{ marginTop: 'auto' }}>
           <button
-            onClick={handleOrder}
+            onClick={() => { setOpen(false); setShowOrder(true) }}
             style={{
               width: '100%', padding: 16, borderRadius: 9999,
               background: C.primary, color: C.onPrimary, border: 'none',
@@ -156,6 +152,8 @@ export default function Navbar() {
           .mobile-menu-btn { display: flex !important; }
         }
       `}</style>
+
+      {showOrder && <OrderModal onClose={() => setShowOrder(false)} />}
     </>
   )
 }

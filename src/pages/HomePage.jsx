@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import logo from '../assets/images/HLT_Logo_2.0_Update.png'
+import OrderModal from '../components/OrderModal'
 
 const C = {
   primary: '#4c6457',
@@ -65,6 +66,7 @@ function Container({ children, style, className }) {
 export default function HomePage() {
   const navigate = useNavigate()
   const [activeReview, setActiveReview] = useState(0)
+  const [showOrder, setShowOrder] = useState(false)
 
   return (
     <div style={{ background: C.surface }}>
@@ -92,7 +94,7 @@ export default function HomePage() {
             </p>
             <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
               <button
-                onClick={() => navigate('/menu')}
+                onClick={() => setShowOrder(true)}
                 style={{
                   padding: '14px 32px', borderRadius: 9999,
                   background: C.primary, color: C.onPrimary, border: 'none',
@@ -182,7 +184,7 @@ export default function HomePage() {
                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 4 }}>
                   <span style={{ fontFamily: 'ArtSchoolDropout', fontSize: 20, color: d.color }}>{d.price}</span>
                   <button
-                    onClick={() => navigate('/menu')}
+                    onClick={() => setShowOrder(true)}
                     style={{
                       borderRadius: 9999, background: 'rgba(255,255,255,0.6)',
                       border: 'none', padding: '8px 18px',
@@ -375,6 +377,7 @@ export default function HomePage() {
         </Container>
       </footer>
 
+      {showOrder && <OrderModal onClose={() => setShowOrder(false)} />}
     </div>
   )
 }
