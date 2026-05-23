@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import OrderModal from '../components/OrderModal'
 import Footer from '../components/Footer'
 
@@ -102,6 +102,9 @@ function Badge({ label }) {
 function MenuCard({ item, index, onOrder }) {
   const [revealed, setRevealed] = useState(false)
   const [mounted, setMounted] = useState(false)
+  const cardRef = useRef(null)
+  // stable touch detection — computed once on mount
+  const isTouch = useRef(typeof window !== 'undefined' && !window.matchMedia('(hover: hover)').matches)
 
   // staggered entrance
   useEffect(() => {
@@ -110,11 +113,23 @@ function MenuCard({ item, index, onOrder }) {
     return () => clearTimeout(t)
   }, [item.id, index])
 
+  // Mobile: reveal when card scrolls into view (≥55% visible), hide when it leaves
+  useEffect(() => {
+    if (!isTouch.current) return
+    const obs = new IntersectionObserver(
+      ([entry]) => setRevealed(entry.isIntersecting),
+      { threshold: 0.55 }
+    )
+    if (cardRef.current) obs.observe(cardRef.current)
+    return () => obs.disconnect()
+  }, [])
+
   return (
     <div
-      onMouseEnter={() => setRevealed(true)}
-      onMouseLeave={() => setRevealed(false)}
-      onClick={() => setRevealed(r => !r)}
+      ref={cardRef}
+      onMouseEnter={() => { if (!isTouch.current) setRevealed(true) }}
+      onMouseLeave={() => { if (!isTouch.current) setRevealed(false) }}
+      onClick={() => { if (isTouch.current) setRevealed(r => !r) }}
       style={{
         position: 'relative',
         borderRadius: 20,
