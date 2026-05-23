@@ -45,7 +45,7 @@ export default function OrderModal({ onClose }) {
             animation: 'modalPopIn 0.32s cubic-bezier(0.34,1.56,0.64,1)',
           }}
         >
-          <p style={{ fontFamily: 'MollicaHandDrawn', fontWeight: 300, fontSize: 20, color: C.secondary, margin: 0 }}>
+          <p style={{ fontFamily: 'Dancing Script', fontWeight: 500, fontSize: 20, color: C.secondary, margin: 0 }}>
             Ready to order?
           </p>
           <h2 style={{

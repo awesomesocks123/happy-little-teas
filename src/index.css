@@ -25,11 +25,7 @@
   font-weight: 300;
   font-style: italic;
 }
-@font-face {
-  font-family: 'MollicaHandDrawn';
-  src: url('./assets/fonts/mollica-hand-drawn-script-2024-11-25-23-23-18-utc/MollicaVF.ttf') format('truetype');
-  font-weight: 100 900;
-}
+/* Dancing Script loaded from Google Fonts in index.html */
 @font-face {
   font-family: 'CobblerSans';
   src: url('./assets/fonts/Cobbler_Sans/Cobbler-Sans-Light.otf') format('opentype');
@@ -106,7 +102,7 @@
   --color-on-background: #1c1c18;
 
   /* Typography */
-  --font-display: 'MollicaHandDrawn', cursive;
+  --font-display: 'Dancing Script', cursive;
   --font-headline: 'ArtSchoolDropout', sans-serif;
   --font-body: 'CobblerSans', sans-serif;
   --font-accent: 'GourmetLeFrench', serif;
@@ -119,9 +115,9 @@
   --radius-full: 9999px;
 }
 
-/* MollicaHandDrawn — light weight sitewide for a slimmer cursive feel */
+/* Dancing Script — light weight sitewide for a slimmer cursive feel */
 .mollica {
-  font-family: 'MollicaHandDrawn', cursive;
+  font-family: 'Dancing Script', cursive;
   font-weight: 300;
 }
 

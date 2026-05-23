@@ -54,7 +54,7 @@ export default function FindUsPage() {
         padding: '64px 0 48px',
         textAlign: 'center',
       }}>
-        <p style={{ fontFamily: 'MollicaHandDrawn', fontWeight: 300, fontSize: 20, color: C.secondary, margin: '0 0 8px' }}>
+        <p style={{ fontFamily: 'Dancing Script', fontWeight: 500, fontSize: 20, color: C.secondary, margin: '0 0 8px' }}>
           Come find us
         </p>
         <h1 style={{

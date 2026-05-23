@@ -282,7 +282,7 @@ export default function HomePage() {
               transform: heroVisible ? 'none' : 'translateY(24px)',
               transition: 'opacity 0.7s ease, transform 0.7s cubic-bezier(0.22,1,0.36,1)',
             }}>
-              <p style={{ fontFamily: 'MollicaHandDrawn', fontWeight: 300, fontSize: 24, color: C.secondary, margin: '0 0 10px' }}>
+              <p style={{ fontFamily: 'Dancing Script', fontWeight: 500, fontSize: 24, color: C.secondary, margin: '0 0 10px' }}>
                 Artisanal Boba & Tea
               </p>
               <h1 style={{ fontFamily: 'ArtSchoolDropout', fontSize: 'clamp(34px, 5vw, 60px)', color: C.primary, margin: 0, lineHeight: 1.1 }}>
@@ -377,7 +377,7 @@ export default function HomePage() {
         <Container>
           <Reveal>
             <div style={{ marginBottom: 40, textAlign: 'center' }}>
-              <p style={{ fontFamily: 'MollicaHandDrawn', fontWeight: 300, fontSize: 22, color: C.secondary, margin: '0 0 8px' }}>
+              <p style={{ fontFamily: 'Dancing Script', fontWeight: 500, fontSize: 22, color: C.secondary, margin: '0 0 8px' }}>
                 Our favourites
               </p>
               <h2 style={{ fontFamily: 'ArtSchoolDropout', fontSize: 'clamp(24px, 3vw, 40px)', color: C.onSurface, margin: 0 }}>
@@ -404,7 +404,7 @@ export default function HomePage() {
         <Container style={{ position: 'relative', zIndex: 1 }}>
           <div className="about-strip" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 40, alignItems: 'center', textAlign: 'center' }}>
             <Reveal direction="left">
-              <p style={{ fontFamily: 'MollicaHandDrawn', fontWeight: 300, fontSize: 22, color: C.primaryContainer, margin: '0 0 10px' }}>
+              <p style={{ fontFamily: 'Dancing Script', fontWeight: 500, fontSize: 22, color: C.primaryContainer, margin: '0 0 10px' }}>
                 Since 2019
               </p>
               <h2 style={{ fontFamily: 'ArtSchoolDropout', fontSize: 'clamp(26px, 3.5vw, 44px)', color: '#ffffff', margin: '0 0 16px', lineHeight: 1.15 }}>
@@ -457,7 +457,7 @@ export default function HomePage() {
         <Container>
           <Reveal>
             <div style={{ marginBottom: 40, textAlign: 'center' }}>
-              <p style={{ fontFamily: 'MollicaHandDrawn', fontWeight: 300, fontSize: 22, color: C.secondary, margin: '0 0 8px' }}>
+              <p style={{ fontFamily: 'Dancing Script', fontWeight: 500, fontSize: 22, color: C.secondary, margin: '0 0 8px' }}>
                 What people say
               </p>
               <h2 style={{ fontFamily: 'ArtSchoolDropout', fontSize: 'clamp(24px, 3vw, 40px)', color: C.onSurface, margin: 0 }}>
@@ -518,7 +518,7 @@ export default function HomePage() {
         <SmallLeaf style={{ position: 'absolute', right: '12%', bottom: '10%', width: 40, color: C.primary, animation: 'leafFloat2 10s ease-in-out infinite 1s', opacity: 0.4, transform: 'rotate(-30deg)' }} />
         <SmallLeaf style={{ position: 'absolute', right: '28%', top: '20%', width: 36, color: C.secondary, animation: 'leafFloat3 9s ease-in-out infinite 2s', opacity: 0.35, transform: 'rotate(20deg)' }} />
         <Reveal>
-          <p style={{ fontFamily: 'MollicaHandDrawn', fontWeight: 300, fontSize: 'clamp(28px, 5vw, 48px)', color: C.primary, margin: '0 0 20px' }}>
+          <p style={{ fontFamily: 'Dancing Script', fontWeight: 500, fontSize: 'clamp(28px, 5vw, 48px)', color: C.primary, margin: '0 0 20px' }}>
             Every sip tells a story.
           </p>
           <button
@@ -543,7 +543,7 @@ export default function HomePage() {
         <Container>
           <Reveal>
             <div style={{ marginBottom: 36, textAlign: 'center' }}>
-              <p style={{ fontFamily: 'MollicaHandDrawn', fontWeight: 300, fontSize: 22, color: C.secondary, margin: '0 0 8px' }}>
+              <p style={{ fontFamily: 'Dancing Script', fontWeight: 500, fontSize: 22, color: C.secondary, margin: '0 0 8px' }}>
                 Come visit us
               </p>
               <h2 style={{ fontFamily: 'ArtSchoolDropout', fontSize: 'clamp(24px, 3vw, 40px)', color: C.onSurface, margin: 0 }}>
@@ -589,7 +589,7 @@ export default function HomePage() {
         <Container style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: 24 }}>
           <div>
             <p style={{ fontFamily: 'ArtSchoolDropout', fontSize: 20, color: C.primaryContainer, margin: '0 0 4px' }}>Happy Little Teas</p>
-            <p style={{ fontFamily: 'MollicaHandDrawn', fontWeight: 300, fontSize: 15, color: 'rgba(179,205,189,0.7)', margin: '0 0 8px' }}>Steeped in joy, poured with love.</p>
+            <p style={{ fontFamily: 'Dancing Script', fontWeight: 500, fontSize: 15, color: 'rgba(179,205,189,0.7)', margin: '0 0 8px' }}>Steeped in joy, poured with love.</p>
             <p style={{ fontFamily: 'CobblerSans', fontSize: 13, color: '#6b7280', margin: 0 }}>© 2026 Happy Little Teas. All rights reserved.</p>
           </div>
           <div style={{ display: 'flex', gap: 28, flexWrap: 'wrap' }}>
