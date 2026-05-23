@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import OrderModal from '../components/OrderModal'
+import Footer from '../components/Footer'
 
 function Leaf({ style }) {
   return (
@@ -218,6 +219,7 @@ export default function FindUsPage() {
       </div>
 
       {showOrder && <OrderModal onClose={() => setShowOrder(false)} />}
+      <Footer />
 
       <style>{`
         @keyframes leafFloat1 { 0%,100%{transform:translateY(0px) rotate(0deg)}33%{transform:translateY(-14px) rotate(4deg)}66%{transform:translateY(6px) rotate(-3deg)} }
