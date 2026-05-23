@@ -1,6 +1,35 @@
 import { useState } from 'react'
 import OrderModal from '../components/OrderModal'
 
+function Leaf({ style }) {
+  return (
+    <svg viewBox="0 0 60 80" fill="none" xmlns="http://www.w3.org/2000/svg" style={style}>
+      <path d="M30 75 C30 75 5 55 5 30 C5 10 18 2 30 2 C42 2 55 10 55 30 C55 55 30 75 30 75Z" fill="currentColor" fillOpacity="0.18" />
+      <path d="M30 75 C30 75 30 40 30 2" stroke="currentColor" strokeOpacity="0.25" strokeWidth="1.5" strokeLinecap="round" />
+      <path d="M30 45 C20 38 10 32 5 30" stroke="currentColor" strokeOpacity="0.18" strokeWidth="1" strokeLinecap="round" />
+      <path d="M30 35 C40 28 50 28 55 30" stroke="currentColor" strokeOpacity="0.18" strokeWidth="1" strokeLinecap="round" />
+    </svg>
+  )
+}
+function SmallLeaf({ style }) {
+  return (
+    <svg viewBox="0 0 40 56" fill="none" xmlns="http://www.w3.org/2000/svg" style={style}>
+      <path d="M20 52 C20 52 3 38 3 20 C3 7 11 1 20 1 C29 1 37 7 37 20 C37 38 20 52 20 52Z" fill="currentColor" fillOpacity="0.14" />
+      <path d="M20 52 C20 52 20 26 20 1" stroke="currentColor" strokeOpacity="0.2" strokeWidth="1.2" strokeLinecap="round" />
+    </svg>
+  )
+}
+function JasmineFlower({ style }) {
+  return (
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style={style}>
+      {[0,72,144,216,288].map(deg => (
+        <ellipse key={deg} cx="24" cy="13" rx="4.5" ry="8" fill="currentColor" fillOpacity="0.22" transform={`rotate(${deg} 24 24)`} />
+      ))}
+      <circle cx="24" cy="24" r="4" fill="currentColor" fillOpacity="0.3" />
+    </svg>
+  )
+}
+
 const C = {
   primary: '#4c6457',
   onPrimary: '#ffffff',
@@ -53,7 +82,16 @@ export default function FindUsPage() {
         borderBottom: `1px solid ${C.outline}`,
         padding: '64px 0 48px',
         textAlign: 'center',
+        position: 'relative', overflow: 'hidden',
       }}>
+        <Leaf style={{ position: 'absolute', top: '-8%', left: '1%', width: 100, color: C.primary, animation: 'leafFloat1 9s ease-in-out infinite' }} />
+        <Leaf style={{ position: 'absolute', top: '0%', right: '2%', width: 80, color: C.primary, animation: 'leafFloat2 11s ease-in-out infinite', transform: 'rotate(-20deg)' }} />
+        <SmallLeaf style={{ position: 'absolute', bottom: '0%', left: '15%', width: 50, color: C.primary, animation: 'leafFloat3 8s ease-in-out infinite 1s', transform: 'rotate(25deg)' }} />
+        <SmallLeaf style={{ position: 'absolute', bottom: '5%', right: '20%', width: 44, color: C.secondary, animation: 'leafFloat1 10s ease-in-out infinite 2s' }} />
+        <JasmineFlower style={{ position: 'absolute', top: '20%', left: '12%', width: 52, color: C.secondary, animation: 'leafFloat2 12s ease-in-out infinite 0.5s' }} />
+        <JasmineFlower style={{ position: 'absolute', top: '10%', right: '18%', width: 46, color: C.primary, animation: 'leafFloat3 10s ease-in-out infinite 1.5s' }} />
+        <JasmineFlower style={{ position: 'absolute', bottom: '8%', left: '38%', width: 36, color: C.secondary, animation: 'leafFloat1 14s ease-in-out infinite 3s', opacity: 0.7 }} />
+        <div style={{ position: 'relative', zIndex: 1 }}>
         <p style={{ fontFamily: 'Dancing Script', fontWeight: 600, fontSize: 26, color: C.secondary, margin: '0 0 8px' }}>
           Come find us
         </p>
@@ -70,6 +108,7 @@ export default function FindUsPage() {
         }}>
           Two cozy spots to find your perfect cup. Walk in, or order ahead.
         </p>
+        </div>
       </div>
 
       {/* ── Location cards ── */}
@@ -181,6 +220,9 @@ export default function FindUsPage() {
       {showOrder && <OrderModal onClose={() => setShowOrder(false)} />}
 
       <style>{`
+        @keyframes leafFloat1 { 0%,100%{transform:translateY(0px) rotate(0deg)}33%{transform:translateY(-14px) rotate(4deg)}66%{transform:translateY(6px) rotate(-3deg)} }
+        @keyframes leafFloat2 { 0%,100%{transform:translateY(0px) rotate(-20deg)}40%{transform:translateY(-18px) rotate(-14deg)}70%{transform:translateY(8px) rotate(-24deg)} }
+        @keyframes leafFloat3 { 0%,100%{transform:translateY(0px) rotate(0deg)}50%{transform:translateY(-10px) rotate(5deg)} }
         @media (min-width: 768px) {
           .location-card { grid-template-columns: 1fr 1fr !important; }
           .location-card > div:first-child { min-height: 400px !important; }

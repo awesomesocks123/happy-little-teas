@@ -42,6 +42,21 @@ function SmallLeaf({ style }) {
   )
 }
 
+function JasmineFlower({ style }) {
+  return (
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" style={style}>
+      {/* 5 petals radiating from center */}
+      {[0,72,144,216,288].map(deg => (
+        <ellipse key={deg} cx="24" cy="13" rx="4.5" ry="8"
+          fill="currentColor" fillOpacity="0.22"
+          transform={`rotate(${deg} 24 24)`} />
+      ))}
+      {/* center dot */}
+      <circle cx="24" cy="24" r="4" fill="currentColor" fillOpacity="0.3" />
+    </svg>
+  )
+}
+
 function BobaBubble({ style }) {
   return (
     <div style={{
@@ -257,10 +272,15 @@ export default function HomePage() {
         {/* Floating botanical decorations */}
         <Leaf style={{ position: 'absolute', top: '-5%', left: '3%',  width: 120, color: C.primary, animation: 'leafFloat1 9s ease-in-out infinite' }} />
         <Leaf style={{ position: 'absolute', top: '10%', right: '5%', width: 90,  color: C.primary, animation: 'leafFloat2 11s ease-in-out infinite', transform: 'rotate(-30deg)' }} />
+        <Leaf style={{ position: 'absolute', bottom: '0%', right: '30%', width: 70, color: C.primary, animation: 'leafFloat3 13s ease-in-out infinite 1s', transform: 'rotate(15deg)' }} />
         <SmallLeaf style={{ position: 'absolute', bottom: '8%',  left: '12%', width: 60, color: C.primary, animation: 'leafFloat3 7s ease-in-out infinite', transform: 'rotate(20deg)' }} />
         <SmallLeaf style={{ position: 'absolute', top: '30%', right: '2%', width: 50, color: C.primary, animation: 'leafFloat1 8s ease-in-out infinite 2s', transform: 'rotate(-50deg)' }} />
         <SmallLeaf style={{ position: 'absolute', bottom: '15%', right: '18%', width: 45, color: C.primary, animation: 'leafFloat2 10s ease-in-out infinite 1s' }} />
         <SmallLeaf style={{ position: 'absolute', top: '55%', left: '7%', width: 40, color: C.secondary, animation: 'leafFloat3 12s ease-in-out infinite 3s', transform: 'rotate(40deg)' }} />
+        {/* Jasmine flowers */}
+        <JasmineFlower style={{ position: 'absolute', top: '18%', left: '22%', width: 52, color: C.secondary, animation: 'leafFloat2 10s ease-in-out infinite 0.5s' }} />
+        <JasmineFlower style={{ position: 'absolute', bottom: '20%', right: '8%', width: 44, color: C.primary, animation: 'leafFloat1 12s ease-in-out infinite 2s' }} />
+        <JasmineFlower style={{ position: 'absolute', top: '65%', left: '35%', width: 36, color: C.secondary, animation: 'leafFloat3 9s ease-in-out infinite 1s', opacity: 0.7 }} />
 
         {/* Boba bubbles background */}
         {[
@@ -337,33 +357,57 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Logo orb */}
-          <div style={{
-            display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative', zIndex: 2,
+          {/* Fanned drink cards */}
+          <div className="hero-cards" style={{
+            position: 'relative', zIndex: 2,
+            display: 'flex', justifyContent: 'center', alignItems: 'center',
+            height: 380,
             opacity: heroVisible ? 1 : 0,
-            transform: heroVisible ? 'scale(1)' : 'scale(0.85)',
-            transition: 'opacity 0.8s ease 0.2s, transform 0.8s cubic-bezier(0.34,1.3,0.64,1) 0.2s',
+            transform: heroVisible ? 'translateY(0)' : 'translateY(28px)',
+            transition: 'opacity 0.8s ease 0.25s, transform 0.8s cubic-bezier(0.22,1,0.36,1) 0.25s',
           }}>
-            {/* Concentric rings */}
-            {[300, 240, 190].map((s, i) => (
-              <div key={s} style={{
+            {[
+              { icon: '🧋', name: 'Classic Brown Sugar', tag: 'Bestseller', bg: '#c8ddd3', color: C.onPrimaryContainer, rotate: -9, x: -110, z: 1 },
+              { icon: '🍵', name: 'Matcha Cloud',         tag: 'Staff Pick',  bg: '#d4e8d0', color: '#1a4a28',           rotate:  0, x:   0,  z: 3 },
+              { icon: '🥭', name: 'Mango Sunshine',       tag: 'Popular',     bg: '#fde8b8', color: '#7a4a00',           rotate:  9, x:  110, z: 2 },
+            ].map((card, i) => (
+              <div key={card.name} style={{
                 position: 'absolute',
-                width: s, height: s, borderRadius: '50%',
-                border: `${2 - i * 0.5}px solid ${C.primaryContainer}`,
-                opacity: 0.3 - i * 0.07,
-                animation: `spin ${18 + i * 6}s linear infinite ${i % 2 === 0 ? '' : 'reverse'}`,
-              }} />
+                left: '50%',
+                width: 190,
+                borderRadius: 24,
+                background: card.bg,
+                boxShadow: i === 1
+                  ? '0 16px 56px rgba(76,100,87,0.22)'
+                  : '0 8px 32px rgba(76,100,87,0.14)',
+                transform: `translateX(calc(-50% + ${card.x}px)) rotate(${card.rotate}deg)`,
+                zIndex: card.z,
+                overflow: 'hidden',
+                padding: '28px 20px 24px',
+                display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10,
+                animation: `floatBob ${4 + i * 0.8}s ease-in-out infinite ${i * 0.6}s`,
+              }}>
+                <div style={{ fontSize: 52, lineHeight: 1 }}>{card.icon}</div>
+                <span style={{
+                  fontFamily: 'CobblerSans', fontWeight: 700, fontSize: 10,
+                  background: 'rgba(255,255,255,0.55)', color: card.color,
+                  borderRadius: 9999, padding: '3px 10px', letterSpacing: '0.06em', textTransform: 'uppercase',
+                }}>{card.tag}</span>
+                <p style={{
+                  fontFamily: 'ArtSchoolDropout', fontSize: 15,
+                  color: card.color, margin: 0, textAlign: 'center', lineHeight: 1.25,
+                }}>{card.name}</p>
+              </div>
             ))}
+            {/* Small logo tucked in bottom-right */}
             <div style={{
-              width: 200, height: 200, borderRadius: '50%',
-              background: 'rgba(255,255,255,0.75)',
-              backdropFilter: 'blur(8px)',
-              border: `3px solid ${C.primaryContainer}`,
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              boxShadow: '0 12px 56px rgba(76,100,87,0.18)',
-              animation: 'floatBob 4s ease-in-out infinite',
+              position: 'absolute', bottom: 4, right: 0, zIndex: 10,
+              background: 'rgba(255,255,255,0.82)', borderRadius: '50%',
+              width: 56, height: 56, display: 'flex', alignItems: 'center', justifyContent: 'center',
+              boxShadow: '0 4px 16px rgba(76,100,87,0.18)',
+              backdropFilter: 'blur(6px)',
             }}>
-              <img src={logo} alt="Happy Little Teas" style={{ width: 160, height: 'auto' }} />
+              <img src={logo} alt="HLT" style={{ width: 44, height: 'auto' }} />
             </div>
           </div>
         </Container>
@@ -399,7 +443,10 @@ export default function HomePage() {
       }}>
         {/* Decorative leaves on dark bg */}
         <Leaf style={{ position: 'absolute', top: '-10%', right: '5%', width: 160, color: '#fff', animation: 'leafFloat2 12s ease-in-out infinite', opacity: 0.06 }} />
+        <Leaf style={{ position: 'absolute', bottom: '-8%', right: '22%', width: 100, color: '#fff', animation: 'leafFloat3 10s ease-in-out infinite 2s', opacity: 0.05 }} />
         <SmallLeaf style={{ position: 'absolute', bottom: '-5%', left: '8%', width: 80, color: '#fff', animation: 'leafFloat1 9s ease-in-out infinite', opacity: 0.07 }} />
+        <JasmineFlower style={{ position: 'absolute', top: '15%', left: '3%', width: 60, color: '#fff', animation: 'leafFloat1 11s ease-in-out infinite 1s', opacity: 0.07 }} />
+        <JasmineFlower style={{ position: 'absolute', bottom: '10%', right: '6%', width: 50, color: '#fff', animation: 'leafFloat2 9s ease-in-out infinite', opacity: 0.06 }} />
 
         <Container style={{ position: 'relative', zIndex: 1 }}>
           <div className="about-strip" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 40, alignItems: 'center', textAlign: 'center' }}>
@@ -638,8 +685,10 @@ export default function HomePage() {
           to   { transform: translateX(-50%); }
         }
 
+        .hero-cards { display: none; }
         @media (min-width: 768px) {
           .hero-grid    { grid-template-columns: 1fr 1fr !important; }
+          .hero-cards   { display: flex !important; }
           .about-strip  { grid-template-columns: 1fr 1fr !important; text-align: left !important; }
         }
         @media (min-width: 900px) {
