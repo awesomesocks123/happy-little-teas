@@ -1858,7 +1858,8 @@ export default function HomePage() {
                   maxWidth: 460,
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.boxShadow = "0 6px 24px rgba(76,100,87,0.12)";
+                  e.currentTarget.style.boxShadow =
+                    "0 6px 24px rgba(76,100,87,0.12)";
                   e.currentTarget.style.transform = "translateY(-3px)";
                 }}
                 onMouseLeave={(e) => {
@@ -1866,32 +1867,106 @@ export default function HomePage() {
                   e.currentTarget.style.transform = "none";
                 }}
               >
-                <span style={{ fontFamily: "Material Icons", fontSize: 32, color: C.primary, flexShrink: 0, marginTop: 2 }}>location_on</span>
+                <span
+                  style={{
+                    fontFamily: "Material Icons",
+                    fontSize: 32,
+                    color: C.primary,
+                    flexShrink: 0,
+                    marginTop: 2,
+                  }}
+                >
+                  location_on
+                </span>
                 <div>
-                  <h3 style={{ fontFamily: "ArtSchoolDropout", fontSize: 20, color: C.onSurface, margin: "0 0 6px" }}>
+                  <h3
+                    style={{
+                      fontFamily: "ArtSchoolDropout",
+                      fontSize: 20,
+                      color: C.onSurface,
+                      margin: "0 0 6px",
+                    }}
+                  >
                     Signal Hill
                   </h3>
-                  <p style={{ fontFamily: "CobblerSans", fontSize: 14, color: C.onSurfaceVariant, margin: "0 0 2px" }}>
+                  <p
+                    style={{
+                      fontFamily: "CobblerSans",
+                      fontSize: 14,
+                      color: C.onSurfaceVariant,
+                      margin: "0 0 2px",
+                    }}
+                  >
                     3199 E Pacific Coast Hwy #101
                   </p>
-                  <p style={{ fontFamily: "CobblerSans", fontSize: 14, color: C.onSurfaceVariant, margin: "0 0 10px" }}>
+                  <p
+                    style={{
+                      fontFamily: "CobblerSans",
+                      fontSize: 14,
+                      color: C.onSurfaceVariant,
+                      margin: "0 0 10px",
+                    }}
+                  >
                     Signal Hill, CA 90755
                   </p>
-                  <p style={{ fontFamily: "CobblerSans", fontSize: 13, color: C.onSurfaceVariant, margin: "0 0 2px" }}>
+                  <p
+                    style={{
+                      fontFamily: "CobblerSans",
+                      fontSize: 13,
+                      color: C.onSurfaceVariant,
+                      margin: "0 0 2px",
+                    }}
+                  >
                     Tue – Sun &nbsp;11am – 7pm
                   </p>
-                  <p style={{ fontFamily: "CobblerSans", fontSize: 13, color: C.onSurfaceVariant, margin: "0 0 10px" }}>
+                  <p
+                    style={{
+                      fontFamily: "CobblerSans",
+                      fontSize: 13,
+                      color: C.onSurfaceVariant,
+                      margin: "0 0 10px",
+                    }}
+                  >
                     Monday &nbsp;Closed
                   </p>
                   <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
-                    <a href="tel:+15623862049" onClick={e => e.stopPropagation()} style={{ fontFamily: "CobblerSans", fontWeight: 600, fontSize: 13, color: C.primary, textDecoration: "none" }}>
+                    <a
+                      href="tel:+15623862049"
+                      onClick={(e) => e.stopPropagation()}
+                      style={{
+                        fontFamily: "CobblerSans",
+                        fontWeight: 600,
+                        fontSize: 13,
+                        color: C.primary,
+                        textDecoration: "none",
+                      }}
+                    >
                       (562) 386-2049
                     </a>
-                    <a href="mailto:happylittleteas@gmail.com" onClick={e => e.stopPropagation()} style={{ fontFamily: "CobblerSans", fontWeight: 600, fontSize: 13, color: C.primary, textDecoration: "none" }}>
+                    <a
+                      href="mailto:happylittleteas@gmail.com"
+                      onClick={(e) => e.stopPropagation()}
+                      style={{
+                        fontFamily: "CobblerSans",
+                        fontWeight: 600,
+                        fontSize: 13,
+                        color: C.primary,
+                        textDecoration: "none",
+                      }}
+                    >
                       happylittleteas@gmail.com
                     </a>
                   </div>
-                  <span style={{ display: "inline-block", marginTop: 12, fontFamily: "CobblerSans", fontWeight: 600, fontSize: 13, color: C.primary }}>
+                  <span
+                    style={{
+                      display: "inline-block",
+                      marginTop: 12,
+                      fontFamily: "CobblerSans",
+                      fontWeight: 600,
+                      fontSize: 13,
+                      color: C.primary,
+                    }}
+                  >
                     Get directions →
                   </span>
                 </div>

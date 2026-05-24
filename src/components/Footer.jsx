@@ -257,7 +257,7 @@ export default function Footer() {
               margin: "0 0 8px",
             }}
           >
-            Steeped in joy, poured with love.
+            Don't Worry, Tea Happy
           </p>
           <p
             style={{
@@ -324,8 +324,8 @@ export default function Footer() {
           {[
             ["Home", "/"],
             ["Menu", "/menu"],
-            ["Our Story", "/story"],
             ["Find Us", "/find-us"],
+            ["Our Story", "/story"],
           ].map(([label, href]) => (
             <a
               key={label}
