@@ -66,6 +66,21 @@ export default function Footer() {
           <p style={{ fontFamily: 'Dancing Script', fontWeight: 600, fontSize: 20, color: 'rgba(179,205,189,0.7)', margin: '0 0 8px' }}>Steeped in joy, poured with love.</p>
           <p style={{ fontFamily: 'CobblerSans', fontSize: 13, color: '#6b7280', margin: 0 }}>© 2026 Happy Little Teas. All rights reserved.</p>
         </div>
+        {/* Hours */}
+        <div>
+          <p style={{ fontFamily: 'CobblerSans', fontWeight: 700, fontSize: 12, color: primaryContainer, margin: '0 0 8px', letterSpacing: '0.06em', textTransform: 'uppercase' }}>Hours</p>
+          {[
+            { days: 'Mon – Fri', time: '8am – 8pm' },
+            { days: 'Saturday',  time: '9am – 9pm' },
+            { days: 'Sunday',    time: '10am – 6pm' },
+          ].map(h => (
+            <div key={h.days} style={{ display: 'flex', gap: 16, justifyContent: 'space-between' }}>
+              <span style={{ fontFamily: 'CobblerSans', fontSize: 13, color: '#9ca3af' }}>{h.days}</span>
+              <span style={{ fontFamily: 'CobblerSans', fontWeight: 600, fontSize: 13, color: '#d1d5db' }}>{h.time}</span>
+            </div>
+          ))}
+        </div>
+
         <div style={{ display: 'flex', gap: 28, flexWrap: 'wrap' }}>
           {[['Home','/'],['Menu','/menu'],['Our Story','/story'],['Find Us','/find-us']].map(([label, href]) => (
             <a
