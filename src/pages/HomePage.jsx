@@ -440,6 +440,25 @@ export default function HomePage() {
         padding: '80px 0 88px',
       }}>
 
+        {/* ── Hours widget ── */}
+        <div style={{
+          position: 'absolute', top: 8, right: 8, zIndex: 0,
+          background: 'rgba(255,255,255,0.5)', backdropFilter: 'blur(6px)',
+          border: `1px solid rgba(194,200,194,0.5)`, borderRadius: 12,
+          padding: '10px 14px', opacity: 0.75,
+        }}>
+          {[
+            { days: 'Mon–Fri', time: '8am–8pm' },
+            { days: 'Sat',     time: '9am–9pm' },
+            { days: 'Sun',     time: '10am–6pm' },
+          ].map(h => (
+            <div key={h.days} style={{ display: 'flex', justifyContent: 'space-between', gap: 10 }}>
+              <span style={{ fontFamily: 'CobblerSans', fontSize: 12, color: C.onSurfaceVariant }}>{h.days}</span>
+              <span style={{ fontFamily: 'CobblerSans', fontWeight: 600, fontSize: 12, color: C.onSurface }}>{h.time}</span>
+            </div>
+          ))}
+        </div>
+
         {/* Floating botanical decorations */}
         <Leaf style={{ position: 'absolute', top: '-5%', left: '3%',  width: 120, color: C.primary, animation: 'leafFloat1 9s ease-in-out infinite' }} />
         <Leaf style={{ position: 'absolute', top: '10%', right: '5%', width: 90,  color: C.primary, animation: 'leafFloat2 11s ease-in-out infinite', transform: 'rotate(-30deg)' }} />

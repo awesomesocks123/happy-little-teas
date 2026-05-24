@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import logo from '../assets/images/HLT_Logo_2.0_Update.png'
 import OrderModal from './OrderModal'
@@ -24,8 +24,12 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [showOrder, setShowOrder] = useState(false)
 
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [menuOpen])
+
   function openOrder() {
-    setMenuOpen(false)
     setShowOrder(true)
   }
 

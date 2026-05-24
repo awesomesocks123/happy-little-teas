@@ -218,11 +218,13 @@ export default function MenuPage() {
     if (cat === 'All') { setSelected(['All']); return }
     setSelected(prev => {
       const withoutAll = prev.filter(c => c !== 'All')
-      if (withoutAll.includes(cat)) {
-        const next = withoutAll.filter(c => c !== cat)
-        return next.length === 0 ? ['All'] : next
-      }
-      return [...withoutAll, cat]
+      const next = withoutAll.includes(cat)
+        ? withoutAll.filter(c => c !== cat)
+        : [...withoutAll, cat]
+      if (next.length === 0) return ['All']
+      const nonAllCats = categories.filter(c => c !== 'All')
+      if (nonAllCats.every(c => next.includes(c))) return ['All']
+      return next
     })
   }
 
