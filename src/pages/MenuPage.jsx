@@ -629,7 +629,7 @@ export default function MenuPage() {
         style={{
           background: `linear-gradient(150deg, #deeae3 0%, ${C.surface} 60%)`,
           borderBottom: `1px solid ${C.outline}`,
-          padding: "56px 0 0",
+          padding: "32px 0 0",
           position: "relative",
           overflow: "hidden",
         }}
@@ -697,17 +697,29 @@ export default function MenuPage() {
             animation: "leafFloat3 9s ease-in-out infinite 1.5s",
           }}
         />
-        <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 32px" }}>
+        <div
+          style={{
+            maxWidth: 1280,
+            margin: "0 auto",
+            padding: "0 32px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            textAlign: "center",
+            paddingBottom: 28,
+            gap: 16,
+          }}
+        >
           <h1
             style={{
               fontFamily: "ArtSchoolDropout",
               fontSize: "clamp(30px, 4vw, 52px)",
               color: C.onSurface,
-              margin: "0 0 8px",
+              margin: 0,
               lineHeight: 1.1,
             }}
           >
-            Full Menu
+            Menu
           </h1>
 
           {/* Multi-select category pills */}
@@ -716,7 +728,7 @@ export default function MenuPage() {
               display: "flex",
               gap: 10,
               flexWrap: "wrap",
-              paddingBottom: 28,
+              justifyContent: "center",
             }}
           >
             {categories.map((cat) => {

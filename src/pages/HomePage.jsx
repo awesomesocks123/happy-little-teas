@@ -3,9 +3,14 @@ import { useNavigate } from "react-router-dom";
 import OrderModal from "../components/OrderModal";
 import Footer from "../components/Footer";
 
-const drinkPics = import.meta.glob('../assets/drink-pics/*.{jpg,png,jpeg,webp}', { eager: true })
-function pic(filename) { return drinkPics[`../assets/drink-pics/${filename}`]?.default }
-const PH = pic('classic-milk-tea.jpg')
+const drinkPics = import.meta.glob(
+  "../assets/drink-pics/*.{jpg,png,jpeg,webp}",
+  { eager: true },
+);
+function pic(filename) {
+  return drinkPics[`../assets/drink-pics/${filename}`]?.default;
+}
+const PH = pic("classic-milk-tea.jpg");
 
 const C = {
   primary: "#4c6457",
@@ -128,9 +133,27 @@ function BobaBubble({ style }) {
 
 // ── Hero drink cards ──────────────────────────────────────────────────────
 const heroCardData = [
-  { image: pic('classic-milk-tea.jpg'), name: "Classic Milk Tea",  tag: "Bestseller", bg: "#c8ddd3", color: C.onPrimaryContainer },
-  { image: pic('matcha-latte.jpg'),     name: "Matcha Latte",      tag: "Staff Pick",  bg: "#d4e8d0", color: "#1a4a28" },
-  { image: pic('mango-fruit-tea.jpg'),  name: "Mango Fruit Tea",   tag: "Popular",     bg: "#fde8b8", color: "#7a4a00" },
+  {
+    image: pic("classic-milk-tea.jpg"),
+    name: "Classic Milk Tea",
+    tag: "Bestseller",
+    bg: "#c8ddd3",
+    color: C.onPrimaryContainer,
+  },
+  {
+    image: pic("matcha-latte.jpg"),
+    name: "Matcha Latte",
+    tag: "Staff Pick",
+    bg: "#d4e8d0",
+    color: "#1a4a28",
+  },
+  {
+    image: pic("mango-fruit-tea.jpg"),
+    name: "Mango Fruit Tea",
+    tag: "Popular",
+    bg: "#fde8b8",
+    color: "#7a4a00",
+  },
 ];
 const basePos = [
   { x: -76, rot: -11, z: 1 },
@@ -259,7 +282,15 @@ function HeroCards({ visible }) {
               borderRadius: 20,
             }}
           />
-          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.45) 0%, transparent 55%)", borderRadius: 20 }} />
+          <div
+            style={{
+              position: "absolute",
+              inset: 0,
+              background:
+                "linear-gradient(to top, rgba(0,0,0,0.45) 0%, transparent 55%)",
+              borderRadius: 20,
+            }}
+          />
           <span
             style={{
               fontFamily: "CobblerSans",
@@ -372,22 +403,24 @@ function Reveal({ children, delay = 0, direction = "up" }) {
 
 // ── Marquee ticker ────────────────────────────────────────────────────────
 const tickerItems = [
-  "🧋 Brown Sugar Boba",
-  "🍵 Ceremonial Matcha",
-  "🥭 Mango Sunshine",
-  "☁️ Matcha Cloud",
-  "🍓 Strawberry Bliss",
-  "🌸 Lychee Rose",
-  "🐯 Brown Sugar Tiger",
-  "☕ Oolong Roast Drip",
-  "🫐 Taro Velvet",
-  "🍑 Peach Oolong Slush",
-  "🧋 Brown Sugar Boba",
-  "🍵 Ceremonial Matcha",
-  "🥭 Mango Sunshine",
-  "☁️ Matcha Cloud",
-  "🍓 Strawberry Bliss",
-  "🌸 Lychee Rose",
+  "Don't Worry, Tea Happy",
+  "Sip and Smile",
+  "Don't Worry, Tea Happy",
+  "Sip and Smile",
+  "Don't Worry, Tea Happy",
+  "Sip and Smile",
+  "Don't Worry, Tea Happy",
+  "Sip and Smile",
+  "Don't Worry, Tea Happy",
+  "Sip and Smile",
+  "Don't Worry, Tea Happy",
+  "Sip and Smile",
+  "Don't Worry, Tea Happy",
+  "Sip and Smile",
+  "Don't Worry, Tea Happy",
+  "Sip and Smile",
+  "Don't Worry, Tea Happy",
+  "Sip and Smile",
 ];
 
 function Marquee() {
@@ -404,7 +437,7 @@ function Marquee() {
       <div
         style={{
           display: "flex",
-          animation: "marquee 32s linear infinite",
+          animation: "marquee 17s linear infinite",
           width: "max-content",
         }}
       >
@@ -430,12 +463,41 @@ function Marquee() {
 
 // ── Featured drinks carousel ──────────────────────────────────────────────
 const featuredDrinks = [
-  { image: pic('classic-milk-tea.jpg'),    name: "Classic Milk Tea",    desc: "Floral Black Tea + Straus Organic Milk.",                           tag: "Bestseller" },
-  { image: pic('matcha-latte.jpg'),         name: "Matcha Latte",        desc: "Uji Matcha + Straus Organic Milk.",                                  tag: "Staff Pick" },
-  { image: pic('mango-fruit-tea.jpg'),      name: "Mango Fruit Tea",     desc: "Floral Green Tea + Fresh Mango + Fresh Orange + Fresh Lime.",        tag: "Recommended" },
-  { image: pic('taro-blended.jpg'),         name: "Taro Blended",        desc: "Taro Puree + Coconut Milk.",                                         tag: "Popular" },
-  { image: pic('strawberry-fruit-tea.jpg'), name: "Strawberry Fruit Tea",desc: "Floral Green Tea + Fresh Strawberries + Fresh Lemon.",               tag: "Fresh" },
-  { image: pic('tiger-milk-tea.jpg'),       name: "Tiger Milk Tea",      desc: "Brown Sugar Syrup + Straus Organic Milk.",                           tag: "Staff Pick" },
+  {
+    image: pic("classic-milk-tea.jpg"),
+    name: "Jasmine Milk Tea",
+    desc: "Floral Green Tea + Straus Organic Milk.",
+  },
+  {
+    image: pic("classic-milk-tea.jpg"),
+    name: "Taro Milk tea",
+    desc: "Classic Milk Tea + Classic Milk Tea + Taro Puree + Handmade Mochi",
+  },
+  {
+    image: pic("classic-milk-tea.jpg"),
+    name: "Green Grape Fruit Tea",
+    desc: "Floral Green Tea + Fresh Grapes + Fresh Lime",
+  },
+  {
+    image: pic("classic-milk-tea.jpg"),
+    name: "Mango Blended",
+    desc: "⅓ LB Fresh Mangoes Blended",
+  },
+  {
+    image: pic("classic-milk-tea.jpg"),
+    name: "Strawbery Mochi",
+    desc: "Fresh Strawberries + Handmade Mochi + Straus Organic Milk",
+  },
+  {
+    image: pic("classic-milk-tea.jpg"),
+    name: "Matcha Latte",
+    desc: "Uji Matcha + Straus Organic Milk.",
+  },
+  {
+    image: pic("classic-milk-tea.jpg"),
+    name: "Tiger Milk Tea",
+    desc: "Brown Sugar Syrup + Straus Organic Milk",
+  },
 ];
 
 function DrinkStack() {
@@ -547,8 +609,8 @@ function DrinkStack() {
               onTouchEnd={isTop ? onPointerUp : undefined}
               style={{
                 position: "absolute",
-                width: "min(72%, 320px)",
-                minHeight: 480,
+                width: "min(82%, 380px)",
+                minHeight: 540,
                 borderRadius: 28,
                 background: "#2a2a28",
                 display: "flex",
@@ -616,19 +678,80 @@ function DrinkStack() {
               )}
 
               {/* Photo background */}
-              <img src={d.image} alt={d.name} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover", pointerEvents: "none" }} />
+              <img
+                src={d.image}
+                alt={d.name}
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                  objectPosition: "center 20%",
+                  pointerEvents: "none",
+                }}
+              />
               {/* Dark gradient overlay for text readability */}
-              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.15) 60%, transparent 100%)", pointerEvents: "none" }} />
+              <div
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  background:
+                    "linear-gradient(to top, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.08) 55%, transparent 100%)",
+                  pointerEvents: "none",
+                }}
+              />
 
               {/* Text content over photo */}
-              <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, padding: "32px 24px 28px", pointerEvents: "none" }}>
-                <span style={{ display: "inline-block", padding: "3px 12px", borderRadius: 9999, background: "rgba(255,255,255,0.2)", marginBottom: 10, fontFamily: "CobblerSans", fontWeight: 700, fontSize: 11, color: "#fff", textTransform: "uppercase", letterSpacing: "0.07em" }}>
+              <div
+                style={{
+                  position: "absolute",
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  padding: "32px 24px 36px",
+                  textAlign: "center",
+                  pointerEvents: "none",
+                }}
+              >
+                <span
+                  style={{
+                    display: "inline-block",
+                    padding: "3px 12px",
+                    borderRadius: 9999,
+                    background: "rgba(255,255,255,0.2)",
+                    marginBottom: 10,
+                    fontFamily: "CobblerSans",
+                    fontWeight: 700,
+                    fontSize: 11,
+                    color: "#fff",
+                    textTransform: "uppercase",
+                    letterSpacing: "0.07em",
+                  }}
+                >
                   {d.tag}
                 </span>
-                <h3 style={{ fontFamily: "ArtSchoolDropout", fontSize: "clamp(20px, 2.6vw, 27px)", color: "#fff", margin: "0 0 8px", lineHeight: 1.2 }}>
+                <h3
+                  style={{
+                    fontFamily: "ArtSchoolDropout",
+                    fontSize: "clamp(16px, 2vw, 20px)",
+                    color: "#fff",
+                    margin: "0 0 4px",
+                    lineHeight: 1.2,
+                  }}
+                >
                   {d.name}
                 </h3>
-                <p style={{ fontFamily: "CobblerSans", fontSize: 14, color: "rgba(255,255,255,0.82)", lineHeight: 1.65, maxWidth: 280, margin: 0 }}>
+                <p
+                  style={{
+                    fontFamily: "CobblerSans",
+                    fontSize: 12,
+                    color: "rgba(255,255,255,0.82)",
+                    lineHeight: 1.5,
+                    maxWidth: 280,
+                    margin: "0 auto",
+                  }}
+                >
                   {d.desc}
                 </p>
               </div>
@@ -686,22 +809,22 @@ const arrowBtn = {
 // ── Reviews ───────────────────────────────────────────────────────────────
 const reviews = [
   {
-    initials: "SJ",
-    name: "Sarah J.",
-    role: "Local Guide",
-    text: '"The Classic Milk Tea is literally the best I\'ve ever had. The boba is so fresh and warm when you get it!"',
+    initials: "MG",
+    name: "Marcus G.",
+    role: "Yelp Review",
+    text: '"Super cute, super low-key, want to gatekeep this place for myself but more people should come experience Happy Little Teas!!! Super yummy and refreshing boba! "',
   },
   {
-    initials: "MT",
-    name: "Michael T.",
-    role: "Tea Enthusiast",
-    text: '"Such a cozy vibe and the Matcha Cloud is out of this world. Highly recommend stopping by if you\'re in the area."',
+    initials: "LT",
+    name: "Lena T.",
+    role: "Google Review",
+    text: '"Greate vibes, great boba, great food, ten out of ten, good place to sit, chill, and sip"',
   },
   {
-    initials: "EL",
-    name: "Emily L.",
-    role: "Regular",
-    text: '"Friendly staff and great seasonal specials. The environment is perfect for getting a little work done."',
+    initials: "OK",
+    name: "Olivia K.",
+    role: "Google Review",
+    text: '"So wonderful they use high quality fresh milk and you can taste the tea flavor. I didnt like my first drink so much and they remade it to another one and were so kind. I highly recommend you check them out! we loved the matcha and jasmine"',
   },
 ];
 
@@ -1050,7 +1173,7 @@ export default function HomePage() {
                     "0 4px 20px rgba(76,100,87,0.3)";
                 }}
               >
-                Order
+                Order Now
               </button>
               <button
                 onClick={() => navigate("/menu")}
@@ -1074,7 +1197,7 @@ export default function HomePage() {
                   (e.currentTarget.style.background = "rgba(255,255,255,0.6)")
                 }
               >
-                Menu
+                Explore Menu
               </button>
             </div>
           </div>
@@ -1302,9 +1425,8 @@ export default function HomePage() {
             style={{
               display: "grid",
               gridTemplateColumns: "1fr",
-              gap: 40,
+              gap: 48,
               alignItems: "center",
-              textAlign: "center",
             }}
           >
             <Reveal direction="left">
@@ -1342,9 +1464,12 @@ export default function HomePage() {
                   maxWidth: 560,
                 }}
               >
-                Born from a family tradition of artisanal blending, every leaf
-                is hand-sorted and every batch slow-brewed. We partner directly
-                with sustainable farms so every sip celebrates the earth.
+                Happy Little Teas is a family run shop in Signal Hill, Long
+                Beach. We handcraft milk tea, fruit teas, matcha, coffee and
+                snacks — all made to order daily using fresh fruit and with no
+                artificial syrups and sweeteners. We are a little shop that
+                loves what it does. Come by, say hi and make yourself feel at
+                home.
               </p>
               <button
                 onClick={() => navigate("/story")}
@@ -1373,6 +1498,30 @@ export default function HomePage() {
             </Reveal>
 
             <Reveal direction="right" delay={100}>
+              {/* Store photo — replace src with real photo when ready */}
+              <div
+                style={{
+                  borderRadius: 24,
+                  overflow: "hidden",
+                  aspectRatio: "4/3",
+                  background: "rgba(255,255,255,0.08)",
+                  border: "2px dashed rgba(255,255,255,0.2)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexDirection: "column",
+                  gap: 10,
+                  color: "rgba(255,255,255,0.4)",
+                  fontFamily: "CobblerSans",
+                  fontSize: 14,
+                }}
+              >
+                <span style={{ fontSize: 36 }}>🏪</span>
+                <span>Store photo coming soon</span>
+              </div>
+            </Reveal>
+
+            {false && (
               <div
                 style={{
                   display: "grid",
@@ -1420,7 +1569,7 @@ export default function HomePage() {
                   </div>
                 ))}
               </div>
-            </Reveal>
+            )}
           </div>
         </Container>
       </section>
@@ -1621,7 +1770,7 @@ export default function HomePage() {
               margin: "0 0 20px",
             }}
           >
-            Every sip tells a story.
+            Sip and Smile
           </p>
           <button
             onClick={() => setShowOrder(true)}
@@ -1688,97 +1837,66 @@ export default function HomePage() {
 
           <div
             style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill,minmax(280px,1fr))",
-              gap: 20,
+              display: "flex",
+              justifyContent: "center",
             }}
           >
-            {[
-              {
-                name: "Downtown",
-                address: "123 Blossom St, Suite 4",
-                hours: "Mon–Sat 9am–8pm · Sun 10am–6pm",
-                icon: "🌿",
-              },
-              {
-                name: "Eastside",
-                address: "456 Garden Ave",
-                hours: "Mon–Fri 8am–7pm · Sat–Sun 10am–7pm",
-                icon: "🍃",
-              },
-            ].map((loc, i) => (
-              <Reveal key={loc.name} delay={i * 100}>
-                <div
-                  onClick={() => navigate("/find-us")}
-                  style={{
-                    background: C.surfaceContainerLow,
-                    border: `1px solid ${C.outline}`,
-                    borderRadius: 20,
-                    padding: 28,
-                    display: "flex",
-                    gap: 18,
-                    alignItems: "flex-start",
-                    cursor: "pointer",
-                    transition: "box-shadow 0.2s, transform 0.2s",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.boxShadow =
-                      "0 6px 24px rgba(76,100,87,0.12)";
-                    e.currentTarget.style.transform = "translateY(-3px)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.boxShadow = "none";
-                    e.currentTarget.style.transform = "none";
-                  }}
-                >
-                  <span style={{ fontSize: 32, flexShrink: 0 }}>
-                    {loc.icon}
-                  </span>
-                  <div>
-                    <h3
-                      style={{
-                        fontFamily: "ArtSchoolDropout",
-                        fontSize: 20,
-                        color: C.onSurface,
-                        margin: "0 0 6px",
-                      }}
-                    >
-                      {loc.name}
-                    </h3>
-                    <p
-                      style={{
-                        fontFamily: "CobblerSans",
-                        fontSize: 14,
-                        color: C.onSurfaceVariant,
-                        margin: "0 0 4px",
-                      }}
-                    >
-                      {loc.address}
-                    </p>
-                    <p
-                      style={{
-                        fontFamily: "CobblerSans",
-                        fontSize: 13,
-                        color: C.onSurfaceVariant,
-                        margin: "0 0 12px",
-                      }}
-                    >
-                      {loc.hours}
-                    </p>
-                    <span
-                      style={{
-                        fontFamily: "CobblerSans",
-                        fontWeight: 600,
-                        fontSize: 13,
-                        color: C.primary,
-                      }}
-                    >
-                      Get directions →
-                    </span>
+            <Reveal>
+              <div
+                onClick={() => navigate("/find-us")}
+                style={{
+                  background: C.surfaceContainerLow,
+                  border: `1px solid ${C.outline}`,
+                  borderRadius: 20,
+                  padding: 28,
+                  display: "flex",
+                  gap: 20,
+                  alignItems: "flex-start",
+                  cursor: "pointer",
+                  transition: "box-shadow 0.2s, transform 0.2s",
+                  width: "100%",
+                  maxWidth: 460,
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = "0 6px 24px rgba(76,100,87,0.12)";
+                  e.currentTarget.style.transform = "translateY(-3px)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = "none";
+                  e.currentTarget.style.transform = "none";
+                }}
+              >
+                <span style={{ fontFamily: "Material Icons", fontSize: 32, color: C.primary, flexShrink: 0, marginTop: 2 }}>location_on</span>
+                <div>
+                  <h3 style={{ fontFamily: "ArtSchoolDropout", fontSize: 20, color: C.onSurface, margin: "0 0 6px" }}>
+                    Signal Hill
+                  </h3>
+                  <p style={{ fontFamily: "CobblerSans", fontSize: 14, color: C.onSurfaceVariant, margin: "0 0 2px" }}>
+                    3199 E Pacific Coast Hwy #101
+                  </p>
+                  <p style={{ fontFamily: "CobblerSans", fontSize: 14, color: C.onSurfaceVariant, margin: "0 0 10px" }}>
+                    Signal Hill, CA 90755
+                  </p>
+                  <p style={{ fontFamily: "CobblerSans", fontSize: 13, color: C.onSurfaceVariant, margin: "0 0 2px" }}>
+                    Tue – Sun &nbsp;11am – 7pm
+                  </p>
+                  <p style={{ fontFamily: "CobblerSans", fontSize: 13, color: C.onSurfaceVariant, margin: "0 0 10px" }}>
+                    Monday &nbsp;Closed
+                  </p>
+                  <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
+                    <a href="tel:+15623862049" onClick={e => e.stopPropagation()} style={{ fontFamily: "CobblerSans", fontWeight: 600, fontSize: 13, color: C.primary, textDecoration: "none" }}>
+                      (562) 386-2049
+                    </a>
+                    <a href="mailto:happylittleteas@gmail.com" onClick={e => e.stopPropagation()} style={{ fontFamily: "CobblerSans", fontWeight: 600, fontSize: 13, color: C.primary, textDecoration: "none" }}>
+                      happylittleteas@gmail.com
+                    </a>
                   </div>
+                  <span style={{ display: "inline-block", marginTop: 12, fontFamily: "CobblerSans", fontWeight: 600, fontSize: 13, color: C.primary }}>
+                    Get directions →
+                  </span>
                 </div>
-              </Reveal>
-            ))}
+              </div>
+            </Reveal>
           </div>
         </Container>
       </section>
